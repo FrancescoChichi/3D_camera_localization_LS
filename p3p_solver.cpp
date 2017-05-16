@@ -53,19 +53,19 @@ namespace pr {
       std::cerr<<"pose: x: "<<robot.translation().x()<<" y: " << robot.translation().y()<< " z: " <<robot.translation().z()<<std::endl;
 
 
-    ADMultivariateFunction<double, ProjectPoint> ad_project_point;
+    ADMultivariateFunction<float, ProjectPoint> ad_project_point;
 
     ad_project_point.point<<camera_point.x(),
                             camera_point.y(),
                             camera_point.z();
     // ad_project_point.point<<1,2,3;
 
-    Eigen::Matrix<double, 6, 1> v;
+    Eigen::Matrix<float, 6, 1> v;
     v << robot.translation().x(), robot.translation().y(), robot.translation().z(),
          q.x(), q.y(), q.z();
 
-    Eigen::Matrix<double, 3, 1> output;
-    Eigen::Matrix<double, 3, 6> J;
+    Eigen::Matrix<float, 3, 1> output;
+    Eigen::Matrix<float, 3, 6> J;
 
     ad_project_point(&output[0], &v[0]);
 
@@ -74,12 +74,14 @@ namespace pr {
     std::cerr << "output: " << std::endl;
     std::cerr << output.transpose() << std::endl;
     std::cerr << "jacobian: " << std::endl;
-    std::cerr << jacobian << std::endl;
+    std::cerr << J(0,0) << std::endl;
 
 
-
-
-
+   /* for (int r = 0; r < Jr.rows(); ++r) {
+      for (int c = 0; c < Jr.cols(); ++c) {
+        Jr(r,c)=(float)
+      }
+    }*/
 
 
 
@@ -99,7 +101,8 @@ namespace pr {
 	    0, iz, -phom.y()*iz2;
       //std::cerr<<"Jp: "<<Jp.matrix()<<std::endl;
 
-      jacobian=Jp*_camera.cameraMatrix()*Jr;
+      jacobian=Jp*_camera.cameraMatrix()*J
+          ;
 
       std::cerr<<"Jacobian2: "<<jacobian.matrix()<<std::endl;
 
