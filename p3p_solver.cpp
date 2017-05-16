@@ -1,7 +1,8 @@
 #include <Eigen/Cholesky>
 #include <iostream>
 #include "p3p_solver.h"
-#include "Landmark.h"
+#include "ProjectPoint.h"
+
 namespace pr {
   
   P3PSolver::P3PSolver(){
@@ -50,31 +51,31 @@ namespace pr {
       std::cerr<<"point: "<<camera_point<<std::endl;
       std::cerr<<"quat: x: "<<q.x()<<" y: " << q.y()<< " z: " <<q.z()<<std::endl;
       std::cerr<<"pose: x: "<<robot.translation().x()<<" y: " << robot.translation().y()<< " z: " <<robot.translation().z()<<std::endl;
-/*
-    ad_project_point.point<<4.70952,-0.010112,12.087;
+
+
+    ADMultivariateFunction<double, ProjectPoint> ad_project_point;
+
+    ad_project_point.point<<camera_point.x(),
+                            camera_point.y(),
+                            camera_point.z();
     // ad_project_point.point<<1,2,3;
 
     Eigen::Matrix<double, 6, 1> v;
-    v << -0.315942,-0.313448,0.345107,-0.0117181,0.708138,-0.705823;
+    v << robot.translation().x(), robot.translation().y(), robot.translation().z(),
+         q.x(), q.y(), q.z();
 
     Eigen::Matrix<double, 3, 1> output;
-    Eigen::Matrix<double, 3, 6> jacobian;
+    Eigen::Matrix<double, 3, 6> J;
 
     ad_project_point(&output[0], &v[0]);
 
-    jacobian=ad_project_point.jacobian(&v[0]);
+    J=ad_project_point.jacobian(&v[0]);
 
+    std::cerr << "output: " << std::endl;
+    std::cerr << output.transpose() << std::endl;
+    std::cerr << "jacobian: " << std::endl;
+    std::cerr << jacobian << std::endl;
 
-
-
-
-
-
-
-
-
-
-    */
 
 
 
@@ -100,7 +101,7 @@ namespace pr {
 
       jacobian=Jp*_camera.cameraMatrix()*Jr;
 
-     // std::cerr<<"Jacobian: "<<jacobian.matrix()<<std::endl;
+      std::cerr<<"Jacobian2: "<<jacobian.matrix()<<std::endl;
 
       return true;
   }
@@ -129,7 +130,7 @@ namespace pr {
       float lambda=1;
       bool is_inlier=true;
       if (chi>_kernel_thereshold){
-        lambda=sqrt(_kernel_thereshold/chi);
+        lambda=AD::sqrt(_kernel_thereshold/chi);
         is_inlier=false;
         _chi_outliers+=chi;
           }
