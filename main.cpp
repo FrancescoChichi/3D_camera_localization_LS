@@ -247,6 +247,7 @@ if(true)
         Eigen::Isometry3f current_camera_pose = camera->worldToCameraPose();
         Eigen::Isometry3f motion = transitions[i].getTransition();
 
+
         camera->setWorldToCameraPose((current_camera_pose * cameraToRobot * motion * robotToCamera));
 
 
@@ -267,7 +268,7 @@ if(true)
 
         Vector2fVector observed_points = Z_to.getProjectedLandmarks();
         float maxDepth = 0;
-        float range = 220.2;
+        float range = 0.2;
         for (int j = 0; j < Z_to.getProjectedLandmarks().size(); ++j) { //calcolo la depth massima
             if (maxDepth < Z_to.getDepth()[j])
                 maxDepth = Z_to.getDepth()[j];
@@ -306,7 +307,7 @@ if(true)
         //data association
         // construct a correspondence finder
         DistanceMapCorrespondenceFinder correspondence_finder;
-        float max_distance = 0.01;
+        float max_distance = 80;
 
         correspondence_finder.init(image_points,
                                    rows,
@@ -316,7 +317,7 @@ if(true)
         correspondence_finder.compute(observed_points);
 
         //show corrispondence
-        if(false){
+        if(true){
             RGBImage img1(rows, cols);
             img1 = cv::Vec3b(255, 255, 255);
 
@@ -348,7 +349,7 @@ if(true)
 
         // construct a solver
         P3PSolver solver;
-        solver.setKernelThreshold(100000000);
+        solver.setKernelThreshold(1000);
 
         solver.init(*camera, world_points , image_points);
 
@@ -388,12 +389,12 @@ if(true)
     sky_view.translation()=t;
     sky_view.linear()=R;
 
-    Eigen::Matrix3f c = Eigen::Matrix3f::Identity();
+   /* Eigen::Matrix3f c = Eigen::Matrix3f::Identity();
     c<<  scale, 0, cols/2,
             0, scale, rows/2,
-            0,      0,      1;
+            0,      0,      1;*/
 
-    Camera *sky_view_camera = new Camera(rows,cols, c, sky_view);
+    Camera *sky_view_camera = new Camera(rows,cols, camera->cameraMatrix(), sky_view);
 
     poseTest(sky_view_camera, landmarks, poses, 10);
     //poseTest(camera, landmarks, poses, 10);
