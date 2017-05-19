@@ -33,15 +33,20 @@ namespace pr {
             else
                 camera_point = world_point;
             //std::cout<<"cam point "<<camera_point<<std::endl;
+
+          //std::cout<<"a " <<std::endl;
             if (camera_point.z()<=0)
                 return false;
-
             //std::cout<<"cam matrix "<<_camera_matrix.matrix()<<std::endl;
             Eigen::Vector3f projected_point=_camera_matrix*camera_point;
             image_point=projected_point.head<2>()*(1./projected_point.z());
-            if(image_point.x()<0 || image_point.x()>_cols-1)
+         // std::cout<<"b"<<image_point<<std::endl;
+         // std::cerr<<"cols "<<_cols<<" rows "<<_rows<<std::endl;
+          if(image_point.x()<0 || image_point.x()>_cols-1)
                 return false;
-            if(image_point.y()<0 || image_point.y()>_rows-1)
+         // std::cout<<"c"<<std::endl;
+
+          if(image_point.y()<0 || image_point.y()>_rows-1)
                 return false;
             return true;
         }

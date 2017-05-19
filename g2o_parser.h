@@ -175,15 +175,15 @@ public:
         cy=stof(token);
 
 
-        c <<
+     /*   c <<
           fx, 0, cx,
             0, fy, cy,
-            0, 0,   1;
-/*
+            0, 0,   1;*/
+
        c<<  fx*scale, 0, cx*cols,
                 0, fy*scale, cy*rows,
                 0,      0,      1;
-*/
+
         cout  <<"camera matrix "<<endl<<c<<endl;
 
         camera = new Camera(rows,cols,c,wtc);
@@ -229,8 +229,8 @@ public:
                     Eigen::Vector3f camera_point;
                     camera_point.setZero();
 
-                    //camera.unprojectPoint(p,camera_point,stof(token));
-                    //camera.projectPoint(p, camera_point, true);
+                    camera.unprojectPoint(p,camera_point,stof(token));
+                    camera.projectPoint(p, camera_point, true);
 
 
                     obs->addProjectedLandmarks(p);
@@ -269,8 +269,8 @@ public:
         Eigen::Vector3f camera_point;
         camera_point.setZero();
 
-        //camera.unprojectPoint(p,camera_point,stof(token));
-        //camera.projectPoint(p, camera_point, true);
+        camera.unprojectPoint(p,camera_point,stof(token));
+        camera.projectPoint(p, camera_point, true);
 
         //p.x()=((p.x()-0.5f)*scale)+(cols/2);
         //p.y()=((p.y()-0.5f)*scale)+(rows/2);

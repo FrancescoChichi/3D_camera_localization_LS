@@ -146,7 +146,7 @@ int main(int argc, char** argv) {
         std::cerr << "reading from: " << filename << std::endl;
     }
     else
-     filename = "/home/francesco/Documenti/magistrale/probabilistic_robotics/project/1b-3D-Camera-Localization.g2o";
+     filename = "/home/francesco/g2o/bin/simulator_out.g2o";
 
     ifstream myfile(filename.c_str());
 
@@ -287,7 +287,7 @@ if(true)
 
         // project the points on the image plane
 
-        camera->projectPoints(image_points, world_points, false);
+        camera->projectPoints(image_points, landmarks, false);
 
 
         //cameraTestProjected(camera, observed_points);
@@ -307,7 +307,7 @@ if(true)
         //data association
         // construct a correspondence finder
         DistanceMapCorrespondenceFinder correspondence_finder;
-        float max_distance = 80;
+        float max_distance = 20;
 
         correspondence_finder.init(image_points,
                                    rows,
@@ -326,8 +326,6 @@ if(true)
 
 
             drawPoints(img1, observed_points, cv::Scalar(255, 0, 255), 3);
-            cv::imshow("observation", img1);
-            cv::waitKey(0);
 
 
             RGBImage shown_image;
@@ -341,7 +339,11 @@ if(true)
                                 image_points,
                                 observed_points,
                                 correspondence_finder.correspondences());
-            cv::imshow("distance map ", shown_image);
+          cv::imshow("observation", img1);
+
+          cv::imshow("distance map ", shown_image);
+          cv::waitKey(0);
+
         }
 
         //calcolo errore tra punti proiettati - punti calcolati con transazione
@@ -351,15 +353,34 @@ if(true)
         P3PSolver solver;
         solver.setKernelThreshold(1000);
 
-        solver.init(*camera, world_points , image_points);
 
-        for (int k = 0; k < 10; ++k) {
 
+        for (int k = 0; k < 1; ++k) {
+
+            //dcerr<<"error: "<<solver.numInliers()<<endl;
+            //cout<<"l "<<world_points.size()<<endl;
+            solver.init(*camera, landmarks , observed_points);
             solver.oneRound(correspondence_finder.correspondences(), false);
 
            // camera->setWorldToCameraPose(solver.camera().worldToCameraPose());
             *camera = solver.camera();
+
+
+
+
+          camera->projectPoints(image_points, landmarks, false);
+
+
+          correspondence_finder.init(image_points,
+                                     rows,
+                                     cols,
+                                     max_distance);
+
+          correspondence_finder.compute(observed_points);
         }
+
+
+
 
         cout<<"associations "<<correspondence_finder.correspondences().size()<<endl;
        // cout<<"camera pose:"<<endl<<camera->worldToCameraPose().matrix()<<endl;
@@ -367,6 +388,11 @@ if(true)
 
 
         poses[i].setPose(camera->worldToCameraPose());
+
+
+
+
+
     }
 
 
