@@ -31,8 +31,8 @@ namespace pr {
     //! @param world_points: the points of the world
     //! @param image_points: the points of the reference
     void init(const Camera& camera,
-	      const std::vector<Landmark>& world_points,
-	      const Vector2fVector& image_points);
+	      const Vector2fVector& predicted,
+	      const Vector2fVector& reference);
   
     inline float kernelThreshold() const {return _kernel_thereshold;}
 
@@ -63,8 +63,8 @@ namespace pr {
 
     bool errorAndJacobian(Eigen::Vector2f& error,
 			  Matrix2_6f& jacobian,
-			  const Eigen::Vector3f& world_point,
-			  const Eigen::Vector2f& reference_image_point);
+			  const Eigen::Vector2f& predicted,
+			  const Eigen::Vector2f& reference);
 
     void linearize(const IntPairVector& correspondences, bool keep_outliers);
 
@@ -73,8 +73,8 @@ namespace pr {
     float _kernel_thereshold;        //< threshold for the kernel
     float _damping;                  //< damping, to slow the solution
     int _min_num_inliers;            //< if less inliers than this value, the solver stops
-    const std::vector<Landmark>* _world_points;
-    const Vector2fVector* _reference_image_points;
+    const Vector2fVector* _predicted;
+    const Vector2fVector* _reference;
     Matrix6f _H;
     Vector6f _b;
     float _chi_inliers;

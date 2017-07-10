@@ -359,7 +359,7 @@ if(true)
 
             //dcerr<<"error: "<<solver.numInliers()<<endl;
             //cout<<"l "<<world_points.size()<<endl;
-            solver.init(*camera, landmarks , observed_points);
+            solver.init(*camera, image_points , observed_points);
             solver.oneRound(correspondence_finder.correspondences(), false);
 
            // camera->setWorldToCameraPose(solver.camera().worldToCameraPose());

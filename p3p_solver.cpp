@@ -6,8 +6,8 @@
 namespace pr {
   
   P3PSolver::P3PSolver(){
-    _world_points=0;
-    _reference_image_points=0;
+    _predicted=0;
+    _reference=0;
     _damping=1;
     _min_num_inliers=0;
     _num_inliers=0;
@@ -15,103 +15,23 @@ namespace pr {
   }
 
   void P3PSolver::init(const Camera& camera_,
-	    const std::vector<Landmark>& world_points,
-	    const Vector2fVector& reference_image_points){
+	    const Vector2fVector& predicted,
+	    const Vector2fVector& reference){
     _camera=camera_;
-    _world_points=&world_points;
-    _reference_image_points=&reference_image_points;
+    _predicted=&predicted;
+    _reference=&reference;
   }
   
 
   bool P3PSolver::errorAndJacobian(Eigen::Vector2f& error,
 				 Matrix2_6f& jacobian,
-				 const Eigen::Vector3f& world_point,
-				 const Eigen::Vector2f& reference_image_point){
-      // compute the prediction
-      Eigen::Vector2f predicted_image_point;
-      bool is_good=_camera.projectPoint(predicted_image_point, world_point, false);
-
-      std::cout<<"###########################################"<<std::endl;
-      std::cout<<"predicted: "<<predicted_image_point<<std::endl;
-      std::cout<<"wp: "<<world_point<<std::endl;
-    std::cout<<"###########################################"<<std::endl;
-
-    //std::cout<<"p: "<<std::endl<<world_point<<std::endl;
-      if(is_good)std::cerr<<"good "<<is_good<<endl;
-      if (! is_good)
-	    return false;
-      error=predicted_image_point-reference_image_point;
-
-      // compute the jacobian of the transformation
-      Eigen::Vector3f camera_point=_camera.worldToCameraPose().inverse(Eigen::Isometry)*world_point;//**************************************.inverse(Eigen::Isometry)
-      //Matrix3_6f Jr=Eigen::Matrix<float, 3,6>::Zero();
-      //Jr.block<3,3>(0,0).setIdentity();
-      //Jr.block<3,3>(0,3)=skew(-camera_point);
+				 const Eigen::Vector2f& predicted,
+				 const Eigen::Vector2f& reference){
 
 
+      error=predicted-reference;
 
-
-
-      Eigen::Isometry3f robot = _camera.worldToCameraPose();
-      Eigen::Quaternionf q(robot.rotation());
-/*
-      std::cerr<<"mat: "<<robot.matrix()<<std::endl;
-      std::cerr<<"point: "<<camera_point<<std::endl;
-      std::cerr<<"quat: x: "<<q.x()<<" y: " << q.y()<< " z: " <<q.z()<<std::endl;
-      std::cerr<<"pose: x: "<<robot.translation().x()<<" y: " << robot.translation().y()<< " z: " <<robot.translation().z()<<std::endl;
-*/
-
-    ADMultivariateFunction<float, ProjectPoint> ad_project_point;
-
-    ad_project_point.point<<camera_point.x(),
-                            camera_point.y(),
-                            camera_point.z();
-
-    Eigen::Matrix<float, 6, 1> v;
-    v << robot.translation().x(), robot.translation().y(), robot.translation().z(),
-         q.x(), q.y(), q.z();
-
-    Eigen::Matrix<float, 3, 1> output;
-    Eigen::Matrix<float, 3, 6> J;
-
-    ad_project_point(&output[0], &v[0]);
-
-    J=ad_project_point.jacobian(&v[0]);
-
-  /*  std::cerr << "output: " << std::endl;
-    std::cerr << output.transpose() << std::endl;
-    std::cerr << "jacobian: " << std::endl;
-    std::cerr << J(0,0) << std::endl;
-*/
-
-   /* for (int r = 0; r < Jr.rows(); ++r) {
-      for (int c = 0; c < Jr.cols(); ++c) {
-        Jr(r,c)=(float)
-      }
-    }*/
-
-
-
-
-
-
-    /* std::cerr<<"error: "<<error<<std::endl;
-     std::cerr<<"point: "<<camera_point<<std::endl;
-     std::cerr<<"Jr: "<<Jr.matrix()<<std::endl;*/
-      Eigen::Vector3f phom=_camera.cameraMatrix()*camera_point;
-      float iz=1./phom.z();
-      float iz2=iz*iz;
-      // jacobian of the projection
-      Matrix2_3f Jp;
-      Jp << 
-	    iz, 0, -phom.x()*iz2,
-	    0, iz, -phom.y()*iz2;
-      //std::cerr<<"Jp: "<<Jp.matrix()<<std::endl;
-
-      jacobian=Jp*_camera.cameraMatrix()*J
-          ;
-
-     // std::cerr<<"Jacobian2: "<<jacobian.matrix()<<std::endl;
+      
 
       return true;
   }
@@ -130,8 +50,8 @@ namespace pr {
       int curr_idx=correspondence.second;
       bool inside=errorAndJacobian(e,
 				   J,
-                   ((*_world_points)[curr_idx]).getPose(),
-                   (*_reference_image_points)[ref_idx]);
+                   ((*_predicted)[curr_idx]),
+                   (*_reference)[ref_idx]);
 
       //  std::cout<<"chieedewdede "<<std::endl;
 
