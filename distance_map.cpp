@@ -45,7 +45,8 @@ void DistanceMap::compute(IntImage& imap,
     maxDistance *=maxDistance;
     int rows = indexImage.rows;
     int cols = indexImage.cols;
-    resize(rows,cols);
+
+           resize(rows,cols);
     imap.create(rows,cols);
     imap = -1;
     DistanceMapCellQueue q;//(rows*cols);
