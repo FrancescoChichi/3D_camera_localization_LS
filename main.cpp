@@ -24,10 +24,10 @@ int cols=640; //1920
 int scale = 150;
 float rangeDepth = 0.1; //depth of the range filter
 float max_distance = 20; //dimension of distance map circle
-int lsIteration = 50; //least square iteration
-int kernelThreshold = 1000000; //least square kernel threshold
-
-
+int lsIteration = 10; //least square iteration
+int kernelThreshold = 1000; //least square kernel threshold
+bool showCorrispondence = true;
+bool showLSStep = true;
 
 
 Isometry3f robotToCamera = Eigen::Isometry3f::Identity();
@@ -212,8 +212,9 @@ if(true)
     Eigen::Isometry3f current_camera_pose = camera->worldToCameraPose();
     Eigen::Isometry3f motion = transitions[i].getTransition();
 
+    cout<<"transition "<<motion.matrix()<<endl;
 
-    camera->setWorldToCameraPose((current_camera_pose * cameraToRobot * motion * robotToCamera));
+    camera->setWorldToCameraPose(current_camera_pose * cameraToRobot * motion * robotToCamera);
 
 
     Isometry3f cameraToWorld = (camera->worldToCameraPose()).inverse(Isometry);
@@ -290,7 +291,7 @@ if(true)
     correspondence_finder.compute(*points.get2DPoints());
 
     //show corrispondence
-    if(true){
+    if(showCorrispondence){
         RGBImage img1(rows, cols);
         img1 = cv::Vec3b(255, 255, 255);
 
@@ -342,9 +343,8 @@ if(true)
       solver.oneRound(correspondence_finder.correspondences(), false);
 
      // camera->setWorldToCameraPose(solver.camera().worldToCameraPose());
+
       *camera = solver.camera();
-
-
 
       camera->projectPoints(points, world_points, false);
 
@@ -356,14 +356,38 @@ if(true)
 
       correspondence_finder.compute(*points.get2DPoints()); //landmarks projected
 
+      if(showLSStep){
+        RGBImage img1(rows, cols);
+        img1 = cv::Vec3b(255, 255, 255);
+
+
+        drawPoints(img1, *points.get2DPoints(), cv::Scalar(255, 0, 0), 3);
+
+
+        drawPoints(img1, observed_points, cv::Scalar(255, 0, 255), 3);
+
+
+        RGBImage shown_image;
+        drawDistanceMap(shown_image,
+                        correspondence_finder.distanceImage(),
+                        correspondence_finder.maxDistance() - 1);
+
+        drawPoints(shown_image, *points.get2DPoints(), cv::Scalar(0, 0, 255), 3);
+        drawPoints(shown_image, observed_points, cv::Scalar(0, 255, 0), 3);
+        drawCorrespondences(shown_image,
+                            observed_points,
+                            *points.get2DPoints(),
+                            correspondence_finder.correspondences());
+        cv::imshow("observation", img1);
+
+        cv::imshow("distance map ", shown_image);
+        cv::waitKey(0);
+      }
      // cerr<<"pose iter n: "<<k<<endl<<camera->worldToCameraPose().matrix()<<endl;
 
     }
 
-
-
-
-      cout<<"associations "<<correspondence_finder.correspondences().size()<<endl;
+     cout<<"associations "<<correspondence_finder.correspondences().size()<<endl;
      // cout<<"camera pose:"<<endl<<camera->worldToCameraPose().matrix()<<endl;
       cout<<endl<<endl<<"***************************************************************************"<<endl;
 

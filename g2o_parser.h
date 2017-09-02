@@ -103,7 +103,6 @@ public:
         ss>>token;
         q.w() = stof(token);
 
-
         T.translation()=p;
         T.linear()=q.toRotationMatrix();
         transition->setTransition(T);

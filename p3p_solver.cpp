@@ -11,7 +11,7 @@ namespace pr {
     _damping=1;
     _min_num_inliers=0;
     _num_inliers=0;
-    _kernel_thereshold=1000; // 33 pixels
+    _kernel_threshold=1000; // 33 pixels
   }
 
   void P3PSolver::init(const Camera& camera_,
@@ -57,7 +57,7 @@ namespace pr {
 
     error=predicted_image_point-reference_image_point;
 
-    std::cerr<<"error "<<error<<std::endl;
+    //std::cerr<<"error "<<error<<std::endl;
     //std::cerr<<"predicted "<<std::endl<<predicted_image_point<<std::endl<< " reference "<<std::endl<<reference_image_point<<std::endl;
 
     // compute the jacobian of the transformation
@@ -88,9 +88,9 @@ namespace pr {
 
       int curr_idx=correspondence.second;
 
-      std::cerr<<"len _wp "<<_reference->size()<<std::endl;
-      std::cerr<<"curr_idx  "<<curr_idx<<std::endl;
-      std::cerr<<"ref_idx  "<<ref_idx<<std::endl;
+      //std::cerr<<"len _wp "<<_reference->size()<<std::endl;
+      //std::cerr<<"curr_idx  "<<curr_idx<<std::endl;
+      //std::cerr<<"ref_idx  "<<ref_idx<<std::endl;
 
       errorAndJacobian(e,
                                 J,
@@ -101,9 +101,9 @@ namespace pr {
       float chi=e.dot(e);
       float lambda=1;
       bool is_inlier=true;
-        //std::cout<<"chi "<<chi<<std::endl;
-      if (chi>_kernel_thereshold){
-        lambda=AD::sqrt(_kernel_thereshold/chi);
+
+      if (chi>_kernel_threshold){
+        lambda=AD::sqrt(_kernel_threshold/chi);
         is_inlier=false;
         _chi_outliers+=chi;
       }
@@ -111,8 +111,7 @@ namespace pr {
         _chi_inliers+=chi;
         _num_inliers++;
       }
-      //std::cerr<<"chi "<<chi<<std::endl;
-
+      std::cerr<<"chi "<<chi<<std::endl;
       //std::cerr<<"inliers "<<_num_inliers<<std::endl;
       if (is_inlier || keep_outliers){
         _H+=J.transpose()*J*lambda;
@@ -136,7 +135,7 @@ namespace pr {
     }
     //compute a solution
     Vector6f dx = _H.ldlt().solve(-_b);
-    _camera.setWorldToCameraPose(v2tEuler(dx)*_camera.worldToCameraPose());
+    _camera.setWorldToCameraPose(v2tEuler(dx).inverse(Eigen::Isometry)*_camera.worldToCameraPose());
     return true;
   }
 }

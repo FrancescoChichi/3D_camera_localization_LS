@@ -39,10 +39,10 @@ namespace pr {
               const Vector2fVector& image_points);
 
 
-    inline float kernelThreshold() const {return _kernel_thereshold;}
+    inline float kernelThreshold() const {return _kernel_threshold;}
 
     inline void setKernelThreshold(float kernel_threshold) 
-    {_kernel_thereshold=kernel_threshold;}
+    {_kernel_threshold=kernel_threshold;}
 
 
 
@@ -130,7 +130,7 @@ namespace pr {
 
     double _epsilon = 0.00001;
     Camera _camera;                  //< this will hold our state
-    float _kernel_thereshold;        //< threshold for the kernel
+    float _kernel_threshold;        //< threshold for the kernel
     float _damping;                  //< damping, to slow the solution
     int _min_num_inliers;            //< if less inliers than this value, the solver stops
     const DictPoints *_predicted;

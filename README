@@ -1,0 +1,22 @@
+Project 1: 3D Camera Localization
+
+The dataset is composed by a single g2o file with anonymized observations.
+With respect to the g2o file we have seen during the lectures, this contains
+the 3D equivalent data, e.g.
+
+	VERTEX_TRACKXYZ 7 -5.07426 -12.3804 0.492881 
+	that represents a landmark with Id=7, and x y z position
+
+	VERTEX_SE3:QUAT 1000 0 0 0 0 0 0 1 
+	that represent a pose with Id=1000, position x y z and orientation qx qy qz qw
+
+	EDGE_SE3:QUAT 1000 1001 -0.0146382 -0.013453 0.046065 -0.0120751 0.0143903 -0.708495 0.705465 100 0 0 0 0 0 100 0 0 0 0 100 0 0 0 10000 0 0 10000 0 10000
+	that represents an edge between pose 1000 and pose 1001 with x y z qx qy qz qw and covariance
+
+	EDGE_PROJECT_DEPTH 1001 57 0 0.419245 0.413553 0.952712 1000 0 0 1000 0 1000 
+	that represents an observation from pose 1001 of landmark 57, x y z depth covariance
+
+project the observation on a pinhole camera and perform localization.
+
+Expected output:
+Trajectory of the camera
