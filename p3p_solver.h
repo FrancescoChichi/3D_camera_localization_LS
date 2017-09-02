@@ -31,11 +31,11 @@ namespace pr {
     //! @param world_points: the points of the world
     //! @param image_points: the points of the reference
     void init(const Camera& camera,
-	      const Vector2fVector& predicted,
+	      const DictPoints& predicted,
 	      const Vector2fVector& reference);
 
     void init(const Camera& camera,
-              const std::vector<Landmark>& world_points,
+              const Vector3fVector& world_points,
               const Vector2fVector& image_points);
 
 
@@ -44,7 +44,43 @@ namespace pr {
     inline void setKernelThreshold(float kernel_threshold) 
     {_kernel_thereshold=kernel_threshold;}
 
+    Eigen::Vector2f derivative(int n,double epsilon,Eigen::Isometry3f T,Eigen::Matrix3f K,Eigen::Vector3f& p, Eigen::Vector2f predictedPoint
+    ){
+      Eigen::Vector2f uv;
+      Eigen::Vector2f ep;
+      Eigen::Vector2f em;
+      Eigen::Isometry3f Tm;
+      Eigen::Vector2f projectedPoint;
 
+      //std::cerr<<"der n "<<n<<std::endl;
+      //trasformare isometria in vettore 6x1
+      //aggiungere e togliere epsilon a x,y,z,qx,qy,qz e calcolarne gli errori
+      Tm.matrix()<<T.matrix();
+      //std::cerr<<"tm prima "<<std::endl<<Tm.matrix()<<std::endl;
+
+      Vector6f t = t2v(Tm);
+      t[n]+=epsilon;
+      Tm = v2t(t);
+      //std::cerr<<"tm dopo "<<std::endl<<Tm.matrix()<<std::endl;
+
+      _camera.projectPoint(projectedPoint, p, Tm);
+      ep=projectedPoint-predictedPoint;
+
+      Tm.matrix()<<T.matrix();
+      //std::cerr<<"tm prima "<<std::endl<<Tm.matrix()<<std::endl;
+
+      t = t2v(Tm);
+      t[n]-=epsilon;
+      Tm = v2t(t);
+      //std::cerr<<"tm dopo "<<std::endl<<Tm.matrix()<<std::endl;
+      _camera.projectPoint(projectedPoint, p, Tm);
+      em=projectedPoint-predictedPoint;
+
+      uv = ep-em;
+      uv /= (1/(2*epsilon));
+
+      return uv;
+    };
   
     //! accessor to the camera
     const Camera& camera() const {return _camera;}
@@ -73,20 +109,21 @@ namespace pr {
 
     bool errorAndJacobian(Eigen::Vector2f& error,
                           Matrix2_6f& jacobian,
-                          const Eigen::Vector3f& world_point,
+                          const Eigen::Vector3f& world_point_3D,
+                          const Eigen::Vector2f& world_point_2D,
                           const Eigen::Vector2f& reference_image_point);
 
     void linearize(const IntPairVector& correspondences, bool keep_outliers);
 
-			       
+
+    double _epsilon = 0.000001;
     Camera _camera;                  //< this will hold our state
     float _kernel_thereshold;        //< threshold for the kernel
     float _damping;                  //< damping, to slow the solution
     int _min_num_inliers;            //< if less inliers than this value, the solver stops
-    const Vector2fVector* _predicted;
+    const DictPoints *_predicted;
     const Vector2fVector* _reference;
-    const std::vector<Landmark>* _world_points;
-    const Vector2fVector* _reference_image_points;
+    const Vector3fVector* _world_points;
     Matrix6f _H;
     Vector6f _b;
     float _chi_inliers;

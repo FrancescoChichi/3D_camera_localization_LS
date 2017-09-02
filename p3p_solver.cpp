@@ -15,7 +15,7 @@ namespace pr {
   }
 
   void P3PSolver::init(const Camera& camera_,
-	    const Vector2fVector& predicted,
+	    const DictPoints& predicted,
 	    const Vector2fVector& reference){
     _camera=camera_;
     _predicted=&predicted;
@@ -24,11 +24,11 @@ namespace pr {
 
 
   void P3PSolver::init(const Camera& camera_,
-                       const std::vector<Landmark>& world_points,
+                       const Vector3fVector& world_points,
                        const Vector2fVector& reference_image_points){
     _camera=camera_;
     _world_points=&world_points;
-    _reference_image_points=&reference_image_points;
+    _reference=&reference_image_points;
   }
 
   bool P3PSolver::errorAndJacobian(Eigen::Vector2f& error,
@@ -38,6 +38,10 @@ namespace pr {
 
     //std::cerr<<"predicted: "<<predicted<< " ref: " << reference<<std::endl;
     error=predicted-reference;
+    std::cerr<<"error "<<error<<std::endl;
+
+    std::cerr<<"predicted "<<std::endl<<predicted<<std::endl<< " reference "<<std::endl<<reference<<std::endl;
+
     //std::cerr<<"error "<<error<<std::endl;
 
     return true;
@@ -46,38 +50,46 @@ namespace pr {
   bool P3PSolver::errorAndJacobian(Eigen::Vector2f& error,
                                    Matrix2_6f& jacobian,
                                    const Eigen::Vector3f& world_point,
+                                   const Eigen::Vector2f& predicted_image_point,
                                    const Eigen::Vector2f& reference_image_point){
     // compute the prediction
-    Eigen::Vector2f predicted_image_point;
-    bool is_good=_camera.projectPoint(predicted_image_point, world_point, false);
-    if (! is_good)
-      return false;
+    //Eigen::Vector2f predicted_image_point;
+    //bool is_good=_camera.projectPoint(predicted_image_point, world_point, false);
+
+    //if(is_good)std::cerr<<"good "<<is_good<<endl;
+    //if (! is_good)
+      //return false;
+
     error=predicted_image_point-reference_image_point;
+    std::cerr<<"error "<<error<<std::endl;
+
+    std::cerr<<"predicted "<<std::endl<<predicted_image_point<<std::endl<< " reference "<<std::endl<<reference_image_point<<std::endl;
+
 
     // compute the jacobian of the transformation
-    Eigen::Vector3f camera_point=_camera.worldToCameraPose()*world_point;
-    Matrix3_6f Jr=Eigen::Matrix<float, 3,6>::Zero();
-    Jr.block<3,3>(0,0).setIdentity();
-    Jr.block<3,3>(0,3)=skew(-camera_point);
 
-    Eigen::Vector3f phom=_camera.cameraMatrix()*camera_point;
-    float iz=1./phom.z();
-    float iz2=iz*iz;
-    // jacobian of the projection
-    Matrix2_3f Jp;
-    Jp <<
-       iz, 0, -phom.x()*iz2,
-        0, iz, -phom.y()*iz2;
+    //jacobian.matrix()<<0,1,2,3,4,5,6,7,8,9,10,11;
+    //std::cerr<<jacobian.matrix()<<std::endl;
+    //std::cerr<<jacobian.block<2,1>(0,5)<<std::endl;
 
-    jacobian=Jp*_camera.cameraMatrix()*Jr;
+    jacobian.setZero();
+    for (int i = 0; i < 6; ++i) {
+      jacobian.block<2,1>(0,i)<<derivative(i, _epsilon, _camera.worldToCameraPose().inverse(Eigen::Isometry), _camera.cameraMatrix(),
+                                           (Vector3f &) world_point, reference_image_point);
+    }
+    std::cerr<<"jacobian "<<std::endl<<jacobian<<std::endl;
+
     return true;
   }
+
+
   void P3PSolver::linearize(const IntPairVector& correspondences, bool keep_outliers){
     _H.setZero();
     _b.setZero();
     _num_inliers=0;
     _chi_inliers=0;
     _chi_outliers=0;
+
 
     for (const IntPair& correspondence: correspondences){
       Eigen::Vector2f e;
@@ -87,10 +99,19 @@ namespace pr {
       //std::cerr<<"len "<<(*_reference).size()<<std::endl;
 
       int curr_idx=correspondence.second;
-      bool inside=errorAndJacobian(e,
-                                   J,
-                                   ((*_predicted)[curr_idx]),
-                                   (*_reference)[ref_idx]);
+      bool inside;
+
+        std::cerr<<"len _wp "<<_reference->size()<<std::endl;
+        std::cerr<<"curr_idx  "<<ref_idx<<std::endl;
+
+        inside = errorAndJacobian(e,
+                                  J,
+                                  ((*_predicted).get3DPoints()->at(curr_idx)),
+                                  ((*_predicted).get2DPoints()->at(curr_idx)), //(*points.get2DPoints())
+                                  (*_reference)[ref_idx]);
+/*                                   const Eigen::Vector3f& world_point,
+                                   const Eigen::Vector2f& predicted_image_point,
+                                   const Eigen::Vector2f& reference_image_point){*/
 
       //  std::cout<<"chieedewdede "<<std::endl;
 

@@ -6,6 +6,12 @@
 
 #IncludeRegexTransform: 
 
+/home/francesco/Documenti/Probabilistic_robotics/DictPoints.h
+Eigen/Dense
+-
+defs.h
+/home/francesco/Documenti/Probabilistic_robotics/defs.h
+
 /home/francesco/Documenti/Probabilistic_robotics/Landmark.h
 Eigen/Dense
 -
@@ -53,8 +59,8 @@ Eigen/Core
 /home/francesco/Documenti/Probabilistic_robotics/camera.cpp
 camera.h
 /home/francesco/Documenti/Probabilistic_robotics/camera.h
-math.h
--
+DictPoints.h
+/home/francesco/Documenti/Probabilistic_robotics/DictPoints.h
 
 /home/francesco/Documenti/Probabilistic_robotics/camera.h
 defs.h
@@ -63,6 +69,8 @@ Landmark.h
 /home/francesco/Documenti/Probabilistic_robotics/Landmark.h
 Pose.h
 /home/francesco/Documenti/Probabilistic_robotics/Pose.h
+DictPoints.h
+/home/francesco/Documenti/Probabilistic_robotics/DictPoints.h
 
 /home/francesco/Documenti/Probabilistic_robotics/defs.h
 Eigen/Core
@@ -169,6 +177,8 @@ p3p_solver.h
 /home/francesco/Documenti/Probabilistic_robotics/p3p_solver.h
 g2o_parser.h
 /home/francesco/Documenti/Probabilistic_robotics/g2o_parser.h
+DictPoints.h
+/home/francesco/Documenti/Probabilistic_robotics/DictPoints.h
 
 /home/francesco/Documenti/Probabilistic_robotics/p3p_solver.cpp
 Eigen/Cholesky

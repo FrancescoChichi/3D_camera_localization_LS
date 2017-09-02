@@ -20,7 +20,7 @@ set(SOURCE_FILES
         distance_map_correspondence_finder.cpp
         distance_map_correspondence_finder.h
         camera.h camera.cpp
-        Observation.h g2o_parser.h ProjectPoint.h)
+        Observation.h g2o_parser.h ProjectPoint.h DictPoints.h)
 add_executable(Probabilistic_robotics ${SOURCE_FILES})
 
 

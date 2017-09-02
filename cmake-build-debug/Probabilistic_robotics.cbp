@@ -92,6 +92,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/francesco/Documenti/Probabilistic_robotics/DictPoints.h">
+			<Option target="Probabilistic_robotics"/>
+		</Unit>
 		<Unit filename="/home/francesco/Documenti/Probabilistic_robotics/Landmark.h">
 			<Option target="Probabilistic_robotics"/>
 		</Unit>

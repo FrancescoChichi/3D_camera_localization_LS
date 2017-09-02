@@ -64,10 +64,21 @@ namespace pr {
     inline Vector6f t2v(const Eigen::Isometry3f& t){
       Vector6f v;
       v.head<3>()=t.translation();
+      //std::cout<<v.matrix()<<std::endl;
+
       Eigen::Quaternionf q(t.linear());
-      v.block<3,1>(3,0)=q.matrix().block<3,1>(1,0);
-      if (q.w()<0)
-        v.block<3,1>(3,0) *= -1.0f;
+      //std::cout<<"check"<<std::endl<<std::endl<<std::endl<<std::endl<<std::endl;
+      //   std::cout<<q.matrix()<<std::endl;
+      //std::cout<<q.matrix()<<std::endl<<std::endl;
+      //std::cout<<t.matrix()<<std::endl;
+      //v.block<3,1>(3,0)=q.matrix().block<3,1>(1,0);      std::cout<<"check";
+      v[3]=q.x();
+      v[4]=q.y();
+      v[5]=q.z();
+      if (q.w()<0) {
+        v.block<3, 1>(3, 0) *= -1.0f;
+        // std::cout << "check";
+      }
       return v;
     }
 
