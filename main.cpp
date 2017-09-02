@@ -16,11 +16,18 @@
 using namespace std;
 using namespace Eigen;
 using namespace pr;
-//int rows=1080;
-//int cols=1920;
-int rows=480;
-int cols=640;
+
+/** parameters **/
+
+int rows=480; //1080
+int cols=640; //1920
 int scale = 150;
+float rangeDepth = 0.1; //depth of the range filter
+float max_distance = 20; //dimension of distance map circle
+int lsIteration = 50; //least square iteration
+int kernelThreshold = 1000000; //least square kernel threshold
+
+
 
 
 Isometry3f robotToCamera = Eigen::Isometry3f::Identity();
@@ -149,7 +156,8 @@ int main(int argc, char** argv) {
   else
    filename = "/home/francesco/g2o/bin/simulator_out.g2o";
 //"/home/francesco/Documenti/Probabilistic_robotics/1b-3D-Camera-Localization.g2o";
-  
+//"/home/francesco/g2o/bin/simulator_out.g2o";
+
   ifstream myfile(filename.c_str());
 
 
@@ -226,14 +234,14 @@ if(true)
 
     Vector2fVector observed_points = Z_to.getProjectedLandmarks();
     float maxDepth = 0;
-    float range = 0.0;
+
 
     for (int j = 0; j < Z_to.getProjectedLandmarks().size(); ++j) { //calcolo la depth massima
       if (maxDepth < Z_to.getDepth()[j])
           maxDepth = Z_to.getDepth()[j];
     }
 
-    maxDepth = maxDepth + range;
+    maxDepth = maxDepth + rangeDepth;
 
     vector<Landmark> world_points;
     Vector3fVector landmarks_points;
@@ -273,7 +281,6 @@ if(true)
     //data association
     // construct a correspondence finder
     DistanceMapCorrespondenceFinder correspondence_finder;
-    float max_distance = 20;
 
     correspondence_finder.init(observed_points,
                                rows,
@@ -317,14 +324,14 @@ if(true)
 
     // construct a solver
     P3PSolver solver;
-    solver.setKernelThreshold(10000);
+    solver.setKernelThreshold(kernelThreshold);
 
 
     /*for (int l = 0; l < observed_points.size(); ++l) {
       cout<<"numero di punti osservati "<<observed_points[l]<<endl;
     }*/
     //cerr<<"pose prima:"<<endl<<camera->worldToCameraPose().matrix()<<endl;
-    for (int k = 0; k < 10; ++k) {
+    for (int k = 0; k < lsIteration; ++k) {
 
       //dcerr<<"error: "<<solver.numInliers()<<endl;
       //cout<<"l "<<world_points.size()<<endl;

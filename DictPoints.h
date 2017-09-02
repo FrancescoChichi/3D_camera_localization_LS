@@ -1,11 +1,9 @@
-//
-// Created by francesco on 14/07/17.
-//
 
 #ifndef PROBABILISTIC_ROBOTICS_DICTPOINTS_H
 #define PROBABILISTIC_ROBOTICS_DICTPOINTS_H
 #include <Eigen/Dense>
 #include "defs.h"
+
 
 class DictPoints {
 private:

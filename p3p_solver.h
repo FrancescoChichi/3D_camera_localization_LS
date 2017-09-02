@@ -44,6 +44,16 @@ namespace pr {
     inline void setKernelThreshold(float kernel_threshold) 
     {_kernel_thereshold=kernel_threshold;}
 
+
+
+    //! numerical differentiation
+    //! @param n: a column of the jacobian
+    //! @param epsilon: the little delta
+    //! @param T: cameraToWorld
+    //! @param K: camera matrix
+    //! @param p: world point
+    //! @param predictedPoint: reference image point
+
     Eigen::Vector2f derivative(int n,double epsilon,Eigen::Isometry3f T,Eigen::Matrix3f K,Eigen::Vector3f& p, Eigen::Vector2f predictedPoint
     ){
       Eigen::Vector2f uv;
@@ -55,26 +65,28 @@ namespace pr {
       //std::cerr<<"der n "<<n<<std::endl;
       //trasformare isometria in vettore 6x1
       //aggiungere e togliere epsilon a x,y,z,qx,qy,qz e calcolarne gli errori
-      Tm.matrix()<<T.matrix();
+
+      //Tm.matrix()<<T.matrix();
       //std::cerr<<"tm prima "<<std::endl<<Tm.matrix()<<std::endl;
 
-      Vector6f t = t2v(Tm);
+      Vector6f t = t2v(T);
       t[n]+=epsilon;
       Tm = v2t(t);
       //std::cerr<<"tm dopo "<<std::endl<<Tm.matrix()<<std::endl;
-
       _camera.projectPoint(projectedPoint, p, Tm);
       ep=projectedPoint-predictedPoint;
 
-      Tm.matrix()<<T.matrix();
+
+      //Tm.matrix()<<T.matrix();
       //std::cerr<<"tm prima "<<std::endl<<Tm.matrix()<<std::endl;
 
-      t = t2v(Tm);
+      t = t2v(T);
       t[n]-=epsilon;
       Tm = v2t(t);
       //std::cerr<<"tm dopo "<<std::endl<<Tm.matrix()<<std::endl;
       _camera.projectPoint(projectedPoint, p, Tm);
       em=projectedPoint-predictedPoint;
+
 
       uv = ep-em;
       uv /= (1/(2*epsilon));
@@ -116,7 +128,7 @@ namespace pr {
     void linearize(const IntPairVector& correspondences, bool keep_outliers);
 
 
-    double _epsilon = 0.000001;
+    double _epsilon = 0.00001;
     Camera _camera;                  //< this will hold our state
     float _kernel_thereshold;        //< threshold for the kernel
     float _damping;                  //< damping, to slow the solution

@@ -47,30 +47,20 @@ namespace pr {
     return true;
   }
 
+
+
   void P3PSolver::errorAndJacobian(Eigen::Vector2f& error,
                                    Matrix2_6f& jacobian,
                                    const Eigen::Vector3f& world_point,
                                    const Eigen::Vector2f& predicted_image_point,
                                    const Eigen::Vector2f& reference_image_point){
-    // compute the prediction
-    //Eigen::Vector2f predicted_image_point;
-    //bool is_good=_camera.projectPoint(predicted_image_point, world_point, false);
-
-    //if(is_good)std::cerr<<"good "<<is_good<<endl;
-    //if (! is_good)
-      //return false;
 
     error=predicted_image_point-reference_image_point;
+
     std::cerr<<"error "<<error<<std::endl;
-
-    std::cerr<<"predicted "<<std::endl<<predicted_image_point<<std::endl<< " reference "<<std::endl<<reference_image_point<<std::endl;
-
+    //std::cerr<<"predicted "<<std::endl<<predicted_image_point<<std::endl<< " reference "<<std::endl<<reference_image_point<<std::endl;
 
     // compute the jacobian of the transformation
-
-    //jacobian.matrix()<<0,1,2,3,4,5,6,7,8,9,10,11;
-    //std::cerr<<jacobian.matrix()<<std::endl;
-    //std::cerr<<jacobian.block<2,1>(0,5)<<std::endl;
 
     jacobian.setZero();
     for (int i = 0; i < 6; ++i) {
@@ -78,8 +68,6 @@ namespace pr {
                                            (Vector3f &) world_point, reference_image_point);
     }
     std::cerr<<"jacobian "<<std::endl<<jacobian<<std::endl;
-
-    //return true;
   }
 
 
@@ -109,9 +97,6 @@ namespace pr {
                                 ((*_predicted).get3DPoints()->at(curr_idx)),
                                 ((*_predicted).get2DPoints()->at(curr_idx)), //(*points.get2DPoints())
                                 (*_reference)[ref_idx]);
-/*                                   const Eigen::Vector3f& world_point,
-                                 const Eigen::Vector2f& predicted_image_point,
-                                 const Eigen::Vector2f& reference_image_point){*/
 
       float chi=e.dot(e);
       float lambda=1;
