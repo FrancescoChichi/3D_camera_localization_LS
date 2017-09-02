@@ -107,7 +107,7 @@ namespace pr {
 			  const Eigen::Vector2f& predicted,
 			  const Eigen::Vector2f& reference);
 
-    bool errorAndJacobian(Eigen::Vector2f& error,
+    void errorAndJacobian(Eigen::Vector2f& error,
                           Matrix2_6f& jacobian,
                           const Eigen::Vector3f& world_point_3D,
                           const Eigen::Vector2f& world_point_2D,

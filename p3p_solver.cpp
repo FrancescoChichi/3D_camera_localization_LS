@@ -47,7 +47,7 @@ namespace pr {
     return true;
   }
 
-  bool P3PSolver::errorAndJacobian(Eigen::Vector2f& error,
+  void P3PSolver::errorAndJacobian(Eigen::Vector2f& error,
                                    Matrix2_6f& jacobian,
                                    const Eigen::Vector3f& world_point,
                                    const Eigen::Vector2f& predicted_image_point,
@@ -79,7 +79,7 @@ namespace pr {
     }
     std::cerr<<"jacobian "<<std::endl<<jacobian<<std::endl;
 
-    return true;
+    //return true;
   }
 
 
@@ -99,26 +99,20 @@ namespace pr {
       //std::cerr<<"len "<<(*_reference).size()<<std::endl;
 
       int curr_idx=correspondence.second;
-      bool inside;
 
-        std::cerr<<"len _wp "<<_reference->size()<<std::endl;
-        std::cerr<<"curr_idx  "<<ref_idx<<std::endl;
+      std::cerr<<"len _wp "<<_reference->size()<<std::endl;
+      std::cerr<<"curr_idx  "<<curr_idx<<std::endl;
+      std::cerr<<"ref_idx  "<<ref_idx<<std::endl;
 
-        inside = errorAndJacobian(e,
-                                  J,
-                                  ((*_predicted).get3DPoints()->at(curr_idx)),
-                                  ((*_predicted).get2DPoints()->at(curr_idx)), //(*points.get2DPoints())
-                                  (*_reference)[ref_idx]);
+      errorAndJacobian(e,
+                                J,
+                                ((*_predicted).get3DPoints()->at(curr_idx)),
+                                ((*_predicted).get2DPoints()->at(curr_idx)), //(*points.get2DPoints())
+                                (*_reference)[ref_idx]);
 /*                                   const Eigen::Vector3f& world_point,
-                                   const Eigen::Vector2f& predicted_image_point,
-                                   const Eigen::Vector2f& reference_image_point){*/
+                                 const Eigen::Vector2f& predicted_image_point,
+                                 const Eigen::Vector2f& reference_image_point){*/
 
-      //  std::cout<<"chieedewdede "<<std::endl;
-
-      if (! inside)
-        continue;
-
-       // std::cout<<"point "<<((*_world_points)[curr_idx]).getId()<<std::endl;
       float chi=e.dot(e);
       float lambda=1;
       bool is_inlier=true;

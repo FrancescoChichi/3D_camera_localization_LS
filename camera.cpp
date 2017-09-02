@@ -23,9 +23,12 @@ namespace pr {
       points.get2DPoints()->resize(world_points.size());
       points.get3DPoints()->resize(world_points.size());
 
+      DictPoints projectedPoints;
+
       int num_image_points=0;
       const Eigen::Vector2f point_outside(-1,-1);
       int num_points_inside=0;
+
       for(size_t i=0; i<world_points.size(); i++){
         const Eigen::Vector3f world_point=world_points[i].getPose();
         //Eigen::Vector2f& image_point=image_points[num_image_points];
@@ -35,7 +38,7 @@ namespace pr {
         bool is_inside=projectPoint(image_point,world_point, false);
 
         if (is_inside) {
-          points.addPoint(image_point, world_point);
+          projectedPoints.addPoint(image_point, world_point);
           num_points_inside++;
         }
         else
@@ -44,6 +47,16 @@ namespace pr {
           num_image_points++;
         }
       }
+
+      *points.get2DPoints()=*projectedPoints.get2DPoints();
+      *points.get3DPoints()=*projectedPoints.get3DPoints();
+
+
+      std::cout<<"num image points "<<points.get2DPoints()->size()<<std::endl;
+
+      std::cout<<"num world pointss "<<points.get3DPoints()->size()<<std::endl;
+
+      std::cout<<"num inside "<<num_points_inside<<std::endl;
 
        /* for (int j = 0; j < points.get2DPoints().size(); ++j) {
           std::cerr<<"p 2d "<<points.get2DPoints()[j]<< std::endl<<  " p 3d "<<points.get3DPoints()[j]<<std::endl;

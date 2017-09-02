@@ -253,7 +253,7 @@ if(true)
 
     //error*******************************************
     camera->projectPoints(points, world_points, false);
-    cerr<<"dim 2d "<<points.get2DPoints()->size()<<" 3d "<<world_points.size()<<endl;
+    cerr<<"dim 2d "<<points.get2DPoints()->size()<<" 3d "<<points.get3DPoints()->size()<<endl;
 
 
     //cameraTestProjected(camera, observed_points);
@@ -324,7 +324,7 @@ if(true)
       cout<<"numero di punti osservati "<<observed_points[l]<<endl;
     }*/
     //cerr<<"pose prima:"<<endl<<camera->worldToCameraPose().matrix()<<endl;
-    for (int k = 0; k < -1; ++k) {
+    for (int k = 0; k < 10; ++k) {
 
       //dcerr<<"error: "<<solver.numInliers()<<endl;
       //cout<<"l "<<world_points.size()<<endl;

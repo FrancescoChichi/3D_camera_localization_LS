@@ -12,25 +12,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="39ead924-4e03-4f1b-8a7e-8b6236ab6d81" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/DictPoints.h" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/main.cpp.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/p3p_solver.cpp.o" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/camera.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/camera.cpp.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/distance_map.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/distance_map.cpp.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/distance_map_correspondence_finder.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/distance_map_correspondence_finder.cpp.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/main.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/main.cpp.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/p3p_solver.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/p3p_solver.cpp.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/points_utils.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/points_utils.cpp.o" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/Probabilistic_robotics" afterPath="$PROJECT_DIR$/cmake-build-debug/Probabilistic_robotics" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/camera.cpp" afterPath="$PROJECT_DIR$/camera.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/camera.h" afterPath="$PROJECT_DIR$/camera.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/CXX.includecache" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/CXX.includecache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/depend.internal" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/depend.internal" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/depend.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/depend.make" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/Probabilistic_robotics.cbp" afterPath="$PROJECT_DIR$/cmake-build-debug/Probabilistic_robotics.cbp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/defs.h" afterPath="$PROJECT_DIR$/defs.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/p3p_solver.cpp" afterPath="$PROJECT_DIR$/p3p_solver.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/p3p_solver.h" afterPath="$PROJECT_DIR$/p3p_solver.h" />
@@ -46,11 +33,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="445">
-              <caret line="290" column="32" lean-forward="false" selection-start-line="290" selection-start-column="26" selection-end-line="290" selection-end-column="32" />
+            <state relative-caret-position="222">
+              <caret line="285" column="11" lean-forward="false" selection-start-line="285" selection-start-column="11" selection-end-line="285" selection-end-column="11" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
                 <element signature="e#596#3830#0" expanded="false" />
@@ -62,7 +49,7 @@
       <file leaf-file-name="g2o_parser.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/g2o_parser.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5408">
+            <state relative-caret-position="308">
               <caret line="208" column="36" lean-forward="false" selection-start-line="208" selection-start-column="31" selection-end-line="208" selection-end-column="36" />
               <folding />
             </state>
@@ -72,8 +59,8 @@
       <file leaf-file-name="camera.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/camera.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="858">
-              <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+            <state relative-caret-position="825">
+              <caret line="56" column="35" lean-forward="false" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="35" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -81,11 +68,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="p3p_solver.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="p3p_solver.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/p3p_solver.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1976">
-              <caret line="76" column="37" lean-forward="false" selection-start-line="76" selection-start-column="37" selection-end-line="76" selection-end-column="37" />
+            <state relative-caret-position="183">
+              <caret line="53" column="24" lean-forward="false" selection-start-line="53" selection-start-column="24" selection-end-line="53" selection-end-column="24" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -96,8 +83,8 @@
       <file leaf-file-name="p3p_solver.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/p3p_solver.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1196">
-              <caret line="46" column="20" lean-forward="false" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="20" />
+            <state relative-caret-position="260">
+              <caret line="118" column="31" lean-forward="true" selection-start-line="118" selection-start-column="31" selection-end-line="118" selection-end-column="31" />
               <folding>
                 <element signature="e#14#35#0" expanded="true" />
               </folding>
@@ -108,7 +95,7 @@
       <file leaf-file-name="camera.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/camera.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3068">
+            <state relative-caret-position="552">
               <caret line="118" column="35" lean-forward="false" selection-start-line="118" selection-start-column="35" selection-end-line="118" selection-end-column="35" />
               <folding>
                 <element signature="e#13#30#0" expanded="true" />
@@ -120,8 +107,8 @@
       <file leaf-file-name="DictPoints.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DictPoints.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="11" column="48" lean-forward="false" selection-start-line="11" selection-start-column="48" selection-end-line="11" selection-end-column="48" />
+            <state relative-caret-position="6">
+              <caret line="7" column="17" lean-forward="true" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
               <folding>
                 <element signature="e#132#154#0" expanded="true" />
               </folding>
@@ -133,7 +120,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>observed_points</find>
       <find>create</find>
       <find>rows</find>
       <find>_indices_image</find>
@@ -162,6 +148,8 @@
       <find>che</find>
       <find>der</find>
       <find>check</find>
+      <find>points</find>
+      <find>points</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -177,12 +165,12 @@
         <option value="$PROJECT_DIR$/dict.h" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/Landmark.h" />
-        <option value="$PROJECT_DIR$/p3p_solver.h" />
         <option value="$PROJECT_DIR$/camera.h" />
         <option value="$PROJECT_DIR$/DictPoints.h" />
         <option value="$PROJECT_DIR$/camera.cpp" />
-        <option value="$PROJECT_DIR$/p3p_solver.cpp" />
         <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/p3p_solver.cpp" />
+        <option value="$PROJECT_DIR$/p3p_solver.h" />
       </list>
     </option>
   </component>
@@ -473,12 +461,12 @@
       <workItem from="1500217853700" duration="69000" />
       <workItem from="1504276772693" duration="4871000" />
       <workItem from="1504284120096" duration="3206000" />
-      <workItem from="1504359820813" duration="232000" />
+      <workItem from="1504359820813" duration="2697000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40698000" />
+    <option name="totallyTimeSpent" value="43163000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="50" y="-11" width="1871" height="1092" extended-state="6" />
@@ -866,18 +854,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/defs.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="13" column="99" lean-forward="false" selection-start-line="13" selection-start-column="85" selection-end-line="13" selection-end-column="99" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/distance_map_correspondence_finder.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
           <caret line="12" column="40" lean-forward="false" selection-start-line="12" selection-start-column="40" selection-end-line="12" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -885,22 +866,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
           <caret line="672" column="6" lean-forward="false" selection-start-line="672" selection-start-column="6" selection-end-line="672" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DictPoints.h">
+    <entry file="file://$PROJECT_DIR$/g2o_parser.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="11" column="48" lean-forward="false" selection-start-line="11" selection-start-column="48" selection-end-line="11" selection-end-column="48" />
-          <folding>
-            <element signature="e#132#154#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="308">
+          <caret line="208" column="36" lean-forward="false" selection-start-line="208" selection-start-column="31" selection-end-line="208" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/camera.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3068">
+        <state relative-caret-position="552">
           <caret line="118" column="35" lean-forward="false" selection-start-line="118" selection-start-column="35" selection-end-line="118" selection-end-column="35" />
           <folding>
             <element signature="e#13#30#0" expanded="true" />
@@ -908,51 +888,61 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/DictPoints.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6">
+          <caret line="7" column="17" lean-forward="true" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding>
+            <element signature="e#132#154#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/camera.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="858">
-          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+        <state relative-caret-position="825">
+          <caret line="56" column="35" lean-forward="false" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="35" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/p3p_solver.cpp">
+    <entry file="file://$PROJECT_DIR$/defs.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1976">
-          <caret line="76" column="37" lean-forward="false" selection-start-line="76" selection-start-column="37" selection-end-line="76" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/p3p_solver.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1196">
-          <caret line="46" column="20" lean-forward="false" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="20" />
-          <folding>
-            <element signature="e#14#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/g2o_parser.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5408">
-          <caret line="208" column="36" lean-forward="false" selection-start-line="208" selection-start-column="31" selection-end-line="208" selection-end-column="36" />
+        <state relative-caret-position="182">
+          <caret line="13" column="85" lean-forward="false" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="100" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="290" column="32" lean-forward="false" selection-start-line="290" selection-start-column="26" selection-end-line="290" selection-end-column="32" />
+        <state relative-caret-position="222">
+          <caret line="285" column="11" lean-forward="false" selection-start-line="285" selection-start-column="11" selection-end-line="285" selection-end-column="11" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#596#3830#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/p3p_solver.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="118" column="31" lean-forward="true" selection-start-line="118" selection-start-column="31" selection-end-line="118" selection-end-column="31" />
+          <folding>
+            <element signature="e#14#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/p3p_solver.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="53" column="24" lean-forward="false" selection-start-line="53" selection-start-column="24" selection-end-line="53" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
