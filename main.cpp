@@ -22,13 +22,13 @@ using namespace pr;
 int rows=480; //1080
 int cols=640; //1920
 int scale = 150;
-float rangeDepth = 0.1; //depth of the range filter
+float rangeDepth = 0.3; //depth of the range filter
 float max_distance = 20; //dimension of distance map circle
 int lsIteration = 10; //least square iteration
 int kernelThreshold = 1000; //least square kernel threshold
 bool showCorrispondence = true;
-bool showLSStep = true;
-
+bool showLSStep = false;
+bool ls = false;
 
 Isometry3f robotToCamera = Eigen::Isometry3f::Identity();
 Isometry3f cameraToRobot = Eigen::Isometry3f::Identity();
@@ -215,7 +215,7 @@ if(true)
     cout<<"transition "<<motion.matrix()<<endl;
 
     camera->setWorldToCameraPose(current_camera_pose * cameraToRobot * motion * robotToCamera);
-
+    //camera->setWorldToCameraPose(poses[i].getPose());
 
     Isometry3f cameraToWorld = (camera->worldToCameraPose()).inverse(Isometry);
 
@@ -332,7 +332,7 @@ if(true)
       cout<<"numero di punti osservati "<<observed_points[l]<<endl;
     }*/
     //cerr<<"pose prima:"<<endl<<camera->worldToCameraPose().matrix()<<endl;
-    for (int k = 0; k < lsIteration; ++k) {
+    for (int k = 0; k < ls*lsIteration; ++k) {
 
       //dcerr<<"error: "<<solver.numInliers()<<endl;
       //cout<<"l "<<world_points.size()<<endl;

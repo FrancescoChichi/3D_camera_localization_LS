@@ -128,7 +128,7 @@ namespace pr {
     void linearize(const IntPairVector& correspondences, bool keep_outliers);
 
 
-    double _epsilon = 0.00001;
+    double _epsilon = 0.000001; //00001
     Camera _camera;                  //< this will hold our state
     float _kernel_threshold;        //< threshold for the kernel
     float _damping;                  //< damping, to slow the solution

@@ -103,13 +103,12 @@ public:
         ss>>token;
         q.w() = stof(token);
 
+
         T.translation()=p;
         T.linear()=q.toRotationMatrix();
         transition->setTransition(T);
 
-        //cout<< "transition "<<p<<endl;
-        //cout<<"transition n: "<<transition->getPoseAId()<< endl<<T.matrix()<<endl;
-
+/*
         for (int i=0; i<6; i++){
             for (int j=0; j<6; j++){
                 if (i<=j){
@@ -121,6 +120,7 @@ public:
             }
         }
         transition->setCov(m);
+        */
         return transition;
     }
 
@@ -234,7 +234,7 @@ public:
 
                     obs->addProjectedLandmarks(p);
                     obs->addId(landId);
-
+/*
                     for (int i = 0; i < 3; i++) {
                         for (int j = 0; j < 3; j++) {
                             if (i <= j) {
@@ -245,6 +245,7 @@ public:
                         }
                     }
                     obs->setCov(m);
+                    */
                     return;
                 }
             }
