@@ -20,6 +20,15 @@
 		Using G2O simulator, we obtain a landmarks based map, the robot's perceptions and the transition of the robot between two poses (the odometry).
 
 	\section{Data Structure}
+		All the project's data structures are parsed from the G2O file by the \textit{g2o\_parser} class.
+		\begin{itemize}
+			\item \textbf{Landmark:} This object store the position of a landmark and his ID.
+			\item \textbf{Pose:} Used to represent a robot's pose and his ID.
+			\item \textbf{Transition:} This structure represent the transition of the robot from pose A to B. In it are stored the two poses and their relative ID.
+			\item \textbf{Observation:} 
+			\item \textbf{Camera:}
+
+		\end{itemize}
 	\subsection{Basic Autoencoder}
 
 	\section{Least-Squares Approach}
