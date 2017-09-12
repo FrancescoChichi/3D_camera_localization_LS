@@ -1,0 +1,41 @@
+
+\documentclass[10pt]{article} 
+
+\usepackage[utf8]{inputenc} 
+\usepackage{geometry} 
+\usepackage{pgfplots,wrapfig}
+
+\geometry{a4paper} 
+
+\vspace{2cm}
+\setlength{\parindent}{0cm}
+
+\title{3D Camera Localization - Probabilistic Robotics}
+\author{ Francesco Chichi}
+
+\begin{document}
+	\maketitle
+	\section{Introduction}
+		This project aims to reconstruct the poses of a vehicle, using a Least-Squares approach, using only the odometry and anonymized observations. 
+		Using G2O simulator, we obtain a landmarks based map, the robot's perceptions and the transition of the robot between two poses (the odometry).
+
+	\section{Data Structure}
+	\subsection{Basic Autoencoder}
+
+	\section{Least-Squares Approach}
+	\subsection{Prediction}
+	In order to build our neural network we used two set: the training set extracted from the CHiME Dataset, a dataset containing several hours of recording of living room's sound where some people perform common actions such as talking, playing; the testing set, the same used by paper's author, where the audio files were augmented with abnormal sounds like screams, alarms, etc in order to simulate novelty sounds and test the novelty detection.
+	Both the sets are built in the same way, except for the storage of labels that are extracted only for testing set. The building of sets can be split in two parts: data extraction and building of the set.\\
+	
+	
+	\subsection{Correction}
+	
+	In order to recognize an input as novelty sound the network uses an adaptive threshold in the testing process, in particular in the \textit{test} function. The idea behind the threshold is that we trained our neural network in order 
+	to reconstruct each normal sound, so if it will receives a normal sound as input, the reconstruction error should be low, while if it is very different from the inputs that neural network  saw in training phase, therefore if it is a novelty sound, the reconstruction error should be greater. \\
+	
+	Following the paper's approach we calculate for each sound the euclidean distance, on a frame basis, from the input value and the reconstruction error, then we calculate the mean of the relative frame. Finally we calculate the median of the means for each audio.
+	
+	
+	\section{Experimental Results}	
+	\section{Front-End}	
+\end{document}
