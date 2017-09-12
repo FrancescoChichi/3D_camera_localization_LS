@@ -18,10 +18,6 @@ public:
         void setId(int n) {id = n;};
         Eigen::Vector3f  getPose() const {return p;};
         int getId() const {return id;};
-        void transform(Eigen::Isometry3f T){
-            p = (T.translation().matrix() + (T.rotation().matrix()*p));
-
-        }
 };
 
 

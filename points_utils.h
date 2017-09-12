@@ -14,22 +14,6 @@ namespace pr {
 							  const Eigen::Vector3f& end,
 							  float density);
 
-
-	//! creates a random world of 3d points lying on a set of segments
-	//! @param world_points: the array od 3d points that will be modified
-	//! @param lower_left_bottom: one extrema of the bounding
-	//!                           box containing the world
-	//! @param upper_right_top:   other extrema of bounding box
-	//! @param num_segments:      how many segments
-	//! @param density:           how many points per meter in the lines
-	void makeWorld(Vector3fVector& world_points,
-				   const Eigen::Vector3f& lower_left_bottom,
-				   const Eigen::Vector3f& upper_right_top,
-				   int num_segments,
-				   float density);
-
-
-
 	//! puts in an int matrix the indices of 2d points.
 	//! all cells in the matrix whose coordinates do not appear
 	//! in the points will contain the invalid index -1.
@@ -50,12 +34,6 @@ namespace pr {
 					const cv::Scalar& color,
 					int radius);
 
-
-	void drawPointsInScale(RGBImage& img,
-						   const Vector2fVector& points, int xScale, int yScale,
-						   const cv::Scalar& color,
-						   int radius);
-
 	//! draws a distance map on an image
 	//! @param img: the dest image (will be resized accordingly)
 	//! @param distance_image: the input distance map
@@ -63,7 +41,6 @@ namespace pr {
 	void drawDistanceMap(RGBImage& img,
 						 const FloatImage& distance_image,
 						 float threshold);
-
 
 	//! draws a set of correspondences between 2d points
 	//! @param img: the dest image (preallocated)
@@ -79,6 +56,4 @@ namespace pr {
 							 const Vector2fVector& current_image_points,
 							 const IntPairVector& correspondences,
 							 cv::Scalar color=cv::Scalar(0,255,0));
-
-
 }

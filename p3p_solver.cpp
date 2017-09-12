@@ -22,33 +22,6 @@ namespace pr {
     _reference=&reference;
   }
 
-
-  void P3PSolver::init(const Camera& camera_,
-                       const Vector3fVector& world_points,
-                       const Vector2fVector& reference_image_points){
-    _camera=camera_;
-    _world_points=&world_points;
-    _reference=&reference_image_points;
-  }
-
-  bool P3PSolver::errorAndJacobian(Eigen::Vector2f& error,
-                                   Matrix2_6f& jacobian,
-                                   const Eigen::Vector2f& predicted,
-                                   const Eigen::Vector2f& reference){
-
-    //std::cerr<<"predicted: "<<predicted<< " ref: " << reference<<std::endl;
-    error=predicted-reference;
-    std::cerr<<"error "<<error<<std::endl;
-
-    std::cerr<<"predicted "<<std::endl<<predicted<<std::endl<< " reference "<<std::endl<<reference<<std::endl;
-
-    //std::cerr<<"error "<<error<<std::endl;
-
-    return true;
-  }
-
-
-
   void P3PSolver::errorAndJacobian(Eigen::Vector2f& error,
                                    Matrix2_6f& jacobian,
                                    const Eigen::Vector3f& world_point,
@@ -57,11 +30,7 @@ namespace pr {
 
     error=predicted_image_point-reference_image_point;
 
-    //std::cerr<<"error "<<error<<std::endl;
-    //std::cerr<<"predicted "<<std::endl<<predicted_image_point<<std::endl<< " reference "<<std::endl<<reference_image_point<<std::endl;
-
-    // compute the jacobian of the transformation
-
+    // compute the numeric jacobian of the transformation
     jacobian.setZero();
     for (int i = 0; i < 6; ++i) {
       jacobian.block<2,1>(0,i)<<derivative(i, _epsilon, _camera.worldToCameraPose().inverse(Eigen::Isometry), _camera.cameraMatrix(),
@@ -83,20 +52,13 @@ namespace pr {
       Eigen::Vector2f e;
       Matrix2_6f J;
       int ref_idx=correspondence.first;
-      //std::cerr<<"ref_idx "<<ref_idx<<std::endl;
-      //std::cerr<<"len "<<(*_reference).size()<<std::endl;
-
       int curr_idx=correspondence.second;
 
-      //std::cerr<<"len _wp "<<_reference->size()<<std::endl;
-      //std::cerr<<"curr_idx  "<<curr_idx<<std::endl;
-      //std::cerr<<"ref_idx  "<<ref_idx<<std::endl;
-
       errorAndJacobian(e,
-                                J,
-                                ((*_predicted).get3DPoints()->at(curr_idx)),
-                                ((*_predicted).get2DPoints()->at(curr_idx)), //(*points.get2DPoints())
-                                (*_reference)[ref_idx]);
+                       J,
+                       ((*_predicted).get3DPoints()->at(curr_idx)),
+                       ((*_predicted).get2DPoints()->at(curr_idx)), //(*points.get2DPoints())
+                       (*_reference)[ref_idx]);
 
       float chi=e.dot(e);
       float lambda=1;
@@ -111,8 +73,6 @@ namespace pr {
         _chi_inliers+=chi;
         _num_inliers++;
       }
-      std::cerr<<"chi "<<chi<<std::endl;
-      //std::cerr<<"inliers "<<_num_inliers<<std::endl;
       if (is_inlier || keep_outliers){
         _H+=J.transpose()*J*lambda;
         _b+=J.transpose()*e*lambda;
@@ -122,11 +82,8 @@ namespace pr {
 
   bool P3PSolver::oneRound(const IntPairVector& correspondences, bool keep_outliers){
     using namespace std;
-     // std::cout<<"inliers prima "<<_num_inliers<<std::endl;
 
     linearize(correspondences, keep_outliers);
-    //std::cout<<"inliers dopo "<<_num_inliers<<std::endl;
-
     _H+=Matrix6f::Identity()*_damping;
 
     if(_num_inliers<_min_num_inliers) {

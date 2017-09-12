@@ -34,11 +34,6 @@ namespace pr {
 	      const DictPoints& predicted,
 	      const Vector2fVector& reference);
 
-    void init(const Camera& camera,
-              const Vector3fVector& world_points,
-              const Vector2fVector& image_points);
-
-
     inline float kernelThreshold() const {return _kernel_threshold;}
 
     inline void setKernelThreshold(float kernel_threshold) 
@@ -62,28 +57,17 @@ namespace pr {
       Eigen::Isometry3f Tm;
       Eigen::Vector2f projectedPoint;
 
-      //std::cerr<<"der n "<<n<<std::endl;
-      //trasformare isometria in vettore 6x1
-      //aggiungere e togliere epsilon a x,y,z,qx,qy,qz e calcolarne gli errori
-
-      //Tm.matrix()<<T.matrix();
-      //std::cerr<<"tm prima "<<std::endl<<Tm.matrix()<<std::endl;
-
       Vector6f t = t2v(T);
       t[n]+=epsilon;
       Tm = v2t(t);
-      //std::cerr<<"tm dopo "<<std::endl<<Tm.matrix()<<std::endl;
+
       _camera.projectPoint(projectedPoint, p, Tm);
       ep=projectedPoint-predictedPoint;
-
-
-      //Tm.matrix()<<T.matrix();
-      //std::cerr<<"tm prima "<<std::endl<<Tm.matrix()<<std::endl;
 
       t = t2v(T);
       t[n]-=epsilon;
       Tm = v2t(t);
-      //std::cerr<<"tm dopo "<<std::endl<<Tm.matrix()<<std::endl;
+
       _camera.projectPoint(projectedPoint, p, Tm);
       em=projectedPoint-predictedPoint;
 
@@ -142,5 +126,4 @@ namespace pr {
     float _chi_outliers;
     int _num_inliers;
   };
-
 }

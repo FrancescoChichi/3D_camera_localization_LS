@@ -9,14 +9,13 @@
 
 class Pose {
 private:
-    int id;
-    Eigen::Isometry3f pose;
+  int id;
+  Eigen::Isometry3f pose;
 public:
-    void setPose(Eigen::Isometry3f n) {pose=n;};
-    void setId(int n) {id = n;};
-    Eigen::Isometry3f getPose() {return pose;};
-    int getId() {return id;};
+  void setPose(Eigen::Isometry3f n) {pose=n;};
+  void setId(int n) {id = n;};
+  Eigen::Isometry3f getPose() {return pose;};
+  int getId() {return id;};
 };
-
 
 #endif //PROBABILISTICROBOTICS_POSE_H

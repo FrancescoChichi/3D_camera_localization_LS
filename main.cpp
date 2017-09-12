@@ -39,9 +39,8 @@ void poseTest(Camera *camera, const vector<Landmark>& world_points, vector<Pose>
   char key = 0;
   const char ESC_key = 27;
   while (key != ESC_key) {
-    //Vector2fVector image_points;
+
     DictPoints points;
-    // project the points on the image plane
     camera->projectPoints(points, world_points, false);
     RGBImage shown_image(rows, cols);
     shown_image = cv::Vec3b(255, 255, 255);
@@ -50,15 +49,8 @@ void poseTest(Camera *camera, const vector<Landmark>& world_points, vector<Pose>
 
     Vector2fVector image_pose;
     camera->projectPoints(image_pose, world_poses, false);
-   /* for (int j = 0; j < world_poses.size(); ++j) {
-        Eigen::Vector2f p;
-        p.x()=world_poses[j].getPose().translation().x();
-        p.y()=world_poses[j].getPose().translation().y();
-        image_pose.push_back(p);
-    }*/
 
     drawPoints(shown_image, image_pose, cv::Scalar(255, 0, 0), 8);
-
 
     Vector3fVector lines;
     vector<Landmark> l;
@@ -139,7 +131,6 @@ void poseTest(Camera *camera, const vector<Landmark>& world_points, vector<Pose>
 
     camera->setWorldToCameraPose(motion * current_pose);
     cout << "pose " << camera->worldToCameraPose().matrix() << endl;
-   // cerr << "projction took: " << (t_end_projection - t_start_projection) << " ms" << endl;
 
   }
 }
@@ -155,17 +146,12 @@ int main(int argc, char** argv) {
   }
   else
    filename = "/home/francesco/g2o/bin/simulator_out.g2o";
-//"/home/francesco/Documenti/Probabilistic_robotics/1b-3D-Camera-Localization.g2o";
-//"/home/francesco/g2o/bin/simulator_out.g2o";
 
   ifstream myfile(filename.c_str());
 
-
-  //ifstream myfile("/home/francesco/Documenti/Probabilistic_robotics/1b-3D-Camera-Localization.g2o");//Documenti/probabilistic_robotics/project/1b-3D-Camera-Localization.g2o");
   string token;
 
   vector<Landmark> landmarks;
-  // Vector3fVector world_points;
   vector<Observation> observations;
   vector<Pose> poses;
   vector<Transition> transitions;
@@ -201,27 +187,19 @@ int main(int argc, char** argv) {
   /*************************************************************************************************/
 
 
-
-if(true)
   for (int i = 0; i<transitions.size(); ++i) {//transitions.size()
     //applicare transizione A->B alla camera
-    //std::cout<<camera->worldToCameraPose().inverse(Isometry).matrix()<<std::endl;
-
     cout << "transition from " << transitions[i].getPoseAId() << " to " << transitions[i].getPoseBId() << endl;
 
     Eigen::Isometry3f current_camera_pose = camera->worldToCameraPose();
     Eigen::Isometry3f motion = transitions[i].getTransition();
 
-    cout<<"transition "<<motion.matrix()<<endl;
+    cout << "transition " << motion.matrix() << endl;
 
     camera->setWorldToCameraPose(current_camera_pose * cameraToRobot * motion * robotToCamera);
-    //camera->setWorldToCameraPose(poses[i].getPose());
 
     Isometry3f cameraToWorld = (camera->worldToCameraPose()).inverse(Isometry);
 
-    //cout<<"cam "<<endl<<camera->worldToCameraPose().matrix()<<endl;
-
-    //Vector2fVector image_points;
     DictPoints points;
 
     Observation Z_to;
@@ -239,7 +217,7 @@ if(true)
 
     for (int j = 0; j < Z_to.getProjectedLandmarks().size(); ++j) { //calcolo la depth massima
       if (maxDepth < Z_to.getDepth()[j])
-          maxDepth = Z_to.getDepth()[j];
+        maxDepth = Z_to.getDepth()[j];
     }
 
     maxDepth = maxDepth + rangeDepth;
@@ -247,37 +225,16 @@ if(true)
     vector<Landmark> world_points;
     Vector3fVector landmarks_points;
     for (int j = 0; j < landmarks.size(); ++j) { //filtro i landmarks in base alla depth
-      Eigen::Vector3f p = cameraToWorld * landmarks[j].getPose();//camera->worldToCameraPose()* landmarks[j].getPose(); ***************
-       p = camera->cameraMatrix() * p;
-       if (p.z() <= maxDepth) {
-         world_points.push_back(landmarks[j]);
-         landmarks_points.push_back(landmarks[j].getPose());
-       }
+      Eigen::Vector3f p =
+          cameraToWorld * landmarks[j].getPose();//camera->worldToCameraPose()* landmarks[j].getPose(); ***************
+      p = camera->cameraMatrix() * p;
+      if (p.z() <= maxDepth) {
+        world_points.push_back(landmarks[j]);
+        landmarks_points.push_back(landmarks[j].getPose());
+      }
     }
 
-    cerr<<"##########################################"<<endl;
-    cerr<<"wp "<<world_points.size()<< " lp "<<landmarks_points.size()<<endl;
-    // project the points on the image plane
-    cerr<<"dim 2d "<<points.get2DPoints()->size()<<" 3d "<<world_points.size()<<endl;
-
-    //error*******************************************
     camera->projectPoints(points, world_points, false);
-    cerr<<"dim 2d "<<points.get2DPoints()->size()<<" 3d "<<points.get3DPoints()->size()<<endl;
-
-
-    //cameraTestProjected(camera, observed_points);
-
-    // camera->projectPoints(observed_points, obs, false);
-
-    cout << endl << endl << "**************************************************************************" << endl;
-    cout << "landmarks projected " << points.get2DPoints()->size() << endl;
-    // cout<<"observations in the image " << image_points[1]<<endl;
-    cout << "observations projected " << observed_points.size() << endl;
-
-    //correspondenceFinderTest(camera,obs);
-    //correspondenceFinderTest(camera,landmarks);
-    //cameraTest(camera,obs);
-    //cameraTest(camera,landmarks);
 
     //data association
     // construct a correspondence finder
@@ -291,72 +248,55 @@ if(true)
     correspondence_finder.compute(*points.get2DPoints());
 
     //show corrispondence
-    if(showCorrispondence){
-        RGBImage img1(rows, cols);
-        img1 = cv::Vec3b(255, 255, 255);
+    if (showCorrispondence) {
+      RGBImage img1(rows, cols);
+      img1 = cv::Vec3b(255, 255, 255);
 
 
-        drawPoints(img1, *points.get2DPoints(), cv::Scalar(255, 0, 0), 3);
+      drawPoints(img1, *points.get2DPoints(), cv::Scalar(255, 0, 0), 3);
 
 
-        drawPoints(img1, observed_points, cv::Scalar(255, 0, 255), 3);
+      drawPoints(img1, observed_points, cv::Scalar(255, 0, 255), 3);
 
 
-        RGBImage shown_image;
-        drawDistanceMap(shown_image,
-                        correspondence_finder.distanceImage(),
-                        correspondence_finder.maxDistance() - 1);
+      RGBImage shown_image;
+      drawDistanceMap(shown_image,
+                      correspondence_finder.distanceImage(),
+                      correspondence_finder.maxDistance() - 1);
 
-        drawPoints(shown_image, *points.get2DPoints(), cv::Scalar(0, 0, 255), 3);
-        drawPoints(shown_image, observed_points, cv::Scalar(0, 255, 0), 3);
-        drawCorrespondences(shown_image,
-                            observed_points,
-                            *points.get2DPoints(),
-                            correspondence_finder.correspondences());
+      drawPoints(shown_image, *points.get2DPoints(), cv::Scalar(0, 0, 255), 3);
+      drawPoints(shown_image, observed_points, cv::Scalar(0, 255, 0), 3);
+      drawCorrespondences(shown_image,
+                          observed_points,
+                          *points.get2DPoints(),
+                          correspondence_finder.correspondences());
       cv::imshow("observation", img1);
-
       cv::imshow("distance map ", shown_image);
       cv::waitKey(0);
 
     }
 
-    //calcolo errore tra punti proiettati - punti calcolati con transazione
-    //least square
-
     // construct a solver
     P3PSolver solver;
     solver.setKernelThreshold(kernelThreshold);
 
+    for (int k = 0; k < ls * lsIteration; ++k) {
 
-    /*for (int l = 0; l < observed_points.size(); ++l) {
-      cout<<"numero di punti osservati "<<observed_points[l]<<endl;
-    }*/
-    //cerr<<"pose prima:"<<endl<<camera->worldToCameraPose().matrix()<<endl;
-    for (int k = 0; k < ls*lsIteration; ++k) {
-
-      //dcerr<<"error: "<<solver.numInliers()<<endl;
-      //cout<<"l "<<world_points.size()<<endl;
-
-      //solver.init(*camera, image_points , observed_points);
-      solver.init(*camera, points , observed_points);
-
+      //************one LS iteration ************
+      solver.init(*camera, points, observed_points);
       solver.oneRound(correspondence_finder.correspondences(), false);
-
-     // camera->setWorldToCameraPose(solver.camera().worldToCameraPose());
-
       *camera = solver.camera();
+      //*****************************************
 
       camera->projectPoints(points, world_points, false);
-
-
       correspondence_finder.init(observed_points,
                                  rows,
                                  cols,
                                  max_distance);
-
       correspondence_finder.compute(*points.get2DPoints()); //landmarks projected
 
-      if(showLSStep){
+
+      if (showLSStep) {
         RGBImage img1(rows, cols);
         img1 = cv::Vec3b(255, 255, 255);
 
@@ -383,54 +323,34 @@ if(true)
         cv::imshow("distance map ", shown_image);
         cv::waitKey(0);
       }
-     // cerr<<"pose iter n: "<<k<<endl<<camera->worldToCameraPose().matrix()<<endl;
 
     }
 
-     cout<<"associations "<<correspondence_finder.correspondences().size()<<endl;
-     // cout<<"camera pose:"<<endl<<camera->worldToCameraPose().matrix()<<endl;
-      cout<<endl<<endl<<"***************************************************************************"<<endl;
+    cout << "associations " << correspondence_finder.correspondences().size() << endl;
+    // cout<<"camera pose:"<<endl<<camera->worldToCameraPose().matrix()<<endl;
+    cout << endl << endl << "***************************************************************************" << endl;
+
+    poses[i].setPose(camera->worldToCameraPose());
 
 
-      poses[i].setPose(camera->worldToCameraPose());
+    double t_end_execution = getTime();
+    cerr << "execution took: " << (t_end_execution - t_start_execution) << " ms" << endl;
+
+    Isometry3f sky_view = Eigen::Isometry3f::Identity();
+    Matrix3f R;
+    Vector3f t;
+    t << -6.49545, -7.22359, 7.92861;
+
+    R << -0.0494831, -0.99571, 0.0781914,
+        -0.998766, 0.0496694, 0.000437762,
+        -0.0043196, -0.0780733, -0.996939;
+
+    sky_view.translation() = t;
+    sky_view.linear() = R;
+
+    Camera *sky_view_camera = new Camera(rows, cols, camera->cameraMatrix(), sky_view);
 
 
-
-
-
+    poseTest(sky_view_camera, landmarks, poses, 10);
   }
-
-
-  double t_end_execution = getTime();
-  cerr << "execution took: " << (t_end_execution - t_start_execution) << " ms" << endl;
-  cout<<"jhuihjuio";
-
-
-  Isometry3f sky_view = Eigen::Isometry3f::Identity();
-  Matrix3f R;
-
-
-  Vector3f t;
-  t<<-6.49545, -7.22359,7.92861;
-  //t<<-100, 30,22.9583;
-
-  R<<-0.0494831, -0.99571, 0.0781914,
-          -0.998766, 0.0496694, 0.000437762,
-          -0.0043196, -0.0780733, -0.996939;
-
-  sky_view.translation()=t;
-  sky_view.linear()=R;
-
- /* Eigen::Matrix3f c = Eigen::Matrix3f::Identity();
-  c<<  scale, 0, cols/2,
-          0, scale, rows/2,
-          0,      0,      1;*/
-
-  Camera *sky_view_camera = new Camera(rows,cols, camera->cameraMatrix(), sky_view);
-
-
-  poseTest(sky_view_camera, landmarks, poses, 10);
-  //poseTest(camera, landmarks, poses, 10);
-
-
 }
