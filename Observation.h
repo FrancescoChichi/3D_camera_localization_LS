@@ -13,8 +13,8 @@ class Observation {
 private:
     int poseId;
     pr::Vector2fVector projectedLandmarks;
-    std::vector<int> vectorId;
-    std::vector<float> depth;
+    std::vector<int> vectorId; //list of landmark's ID
+    std::vector<float> depth;  //list of landmark's depth
     int firstId;
 public:
 

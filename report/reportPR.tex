@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc} 
 \usepackage{geometry} 
 \usepackage{pgfplots,wrapfig}
+\usepackage{amssymb}
 
 \geometry{a4paper} 
 
@@ -19,32 +20,47 @@
 		This project aims to reconstruct the poses of a vehicle, using a Least-Squares approach, using only the odometry and anonymized observations. 
 		Using G2O simulator, we obtain a landmarks based map, the robot's perceptions and the transition of the robot between two poses (the odometry).
 
-	\section{Data Structure}
+	\section{Implementation}
+		\subsection{Data Structure}
 		All the project's data structures are parsed from the G2O file by the \textit{g2o\_parser} class.
 		\begin{itemize}
 			\item \textbf{Landmark:} This object store the position of a landmark and his ID.
 			\item \textbf{Pose:} Used to represent a robot's pose and his ID.
 			\item \textbf{Transition:} This structure represent the transition of the robot from pose A to B. In it are stored the two poses and their relative ID.
-			\item \textbf{Observation:} 
-			\item \textbf{Camera:}
-
+			\item \textbf{Observation:} This kind of data structure is used to represent the robot's observations. 
+			It contains the pose's ID, a vector of 2d landmarks and two vector with the relative ID and depth of each one.
+			\item \textbf{DictPoints:} This dictionary is used to store match of 2D and 3D projection of a landmark.
 		\end{itemize}
-	\subsection{Basic Autoencoder}
+	
+		\subsection{Camera}
+		This class is used to represent a camera, initialized with the resolution (rows and columns), the camera matrix and the initial position in the space.
+		In it we find the two principal methods\textit{projectPoints} and \textit{unprojectPoint}, used to transform a point from 2D to 3D and vice versa.
+		
+		\subsection{Distance Map}
+		A distance map approach is used in order to compute the data associations.
+		After each transition, a distance map is computed using the G2O's observations as reference and are computed the corrispondences with the projections of the landmarks observed as reference.
 
+		\subsection{Main}
+		The main class is used to parse the data coming out from the G2O simulation into the main data structures of the project and, for each transition of the robot, the observation in a range are stored and used to compute the data association, in order to use the least square to correct the predicted position of the robot.\\
+		 		
 	\section{Least-Squares Approach}
 	\subsection{Prediction}
-	In order to build our neural network we used two set: the training set extracted from the CHiME Dataset, a dataset containing several hours of recording of living room's sound where some people perform common actions such as talking, playing; the testing set, the same used by paper's author, where the audio files were augmented with abnormal sounds like screams, alarms, etc in order to simulate novelty sounds and test the novelty detection.
-	Both the sets are built in the same way, except for the storage of labels that are extracted only for testing set. The building of sets can be split in two parts: data extraction and building of the set.\\
+	The prediction of the robot's pose at time \textit{t} is obtained applying the odometry transition at time \textit{t} to the pose \textit{t-1} \textit{(current\_camera\_pose * cameraToRobot * motion * robotToCamera)}. \\
+	$h^{[\textit{n}]} = proj(K X^{-1} p^{[\textit{n}]})$.
 	
+	\subsection{Error}
+	The error is computed as the difference between the 2D projection of the landmarks, using the predicted pose, and the observation of the same:\\
+	$e^{[\textit{n,m}]} = h^{[\textit{n}]} - z^{[\textit{m}]}$
+	
+	\subsection{Jacobian}
+	For each landmarks, the column \textit{i} of the $2\times6$ jacobian is computed using the formulae of the numerical differentiation: $ \frac{f(i +  \epsilon) - f(i-\epsilon)}{2\epsilon}$,
+	where \textit{i} is the \textit{i}-th element of the state \textbf{X}.
 	
 	\subsection{Correction}
-	
-	In order to recognize an input as novelty sound the network uses an adaptive threshold in the testing process, in particular in the \textit{test} function. The idea behind the threshold is that we trained our neural network in order 
-	to reconstruct each normal sound, so if it will receives a normal sound as input, the reconstruction error should be low, while if it is very different from the inputs that neural network  saw in training phase, therefore if it is a novelty sound, the reconstruction error should be greater. \\
-	
-	Following the paper's approach we calculate for each sound the euclidean distance, on a frame basis, from the input value and the reconstruction error, then we calculate the mean of the relative frame. Finally we calculate the median of the means for each audio.
-	
-	
+	H $\leftarrow$ H + $J_{\textit{i}}^{T}$ $\Omega_{\textit{i}}$ $J_{\textit{i}}$	\\
+	b $\leftarrow$ b + $J_{\textit{i}}^{T}$ $\Omega_{\textit{i}}$ $e_{\textit{i}}$  \\
+	$\Delta x \leftarrow solve(H\Delta x=-b)$\\
+	$X^* \leftarrow X^* \boxplus \Delta x$
 	\section{Experimental Results}	
 	\section{Front-End}	
 \end{document}
