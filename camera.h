@@ -68,7 +68,7 @@ namespace pr {
         return false;
       return true;
     }
-  
+
     inline void unprojectPoint(const Eigen::Vector2f& image_point,
                                Eigen::Vector3f& camera_point,
                                float depth){

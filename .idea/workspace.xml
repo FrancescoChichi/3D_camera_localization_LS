@@ -12,21 +12,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="39ead924-4e03-4f1b-8a7e-8b6236ab6d81" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Probabilistic_robotics.dir/main.cpp.o" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Landmark.h" afterPath="$PROJECT_DIR$/Landmark.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Observation.h" afterPath="$PROJECT_DIR$/Observation.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pose.h" afterPath="$PROJECT_DIR$/Pose.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Transition.h" afterPath="$PROJECT_DIR$/Transition.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/camera.cpp" afterPath="$PROJECT_DIR$/camera.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/camera.h" afterPath="$PROJECT_DIR$/camera.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/defs.h" afterPath="$PROJECT_DIR$/defs.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/g2o_parser.h" afterPath="$PROJECT_DIR$/g2o_parser.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/p3p_solver.cpp" afterPath="$PROJECT_DIR$/p3p_solver.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/p3p_solver.h" afterPath="$PROJECT_DIR$/p3p_solver.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/points_utils.cpp" afterPath="$PROJECT_DIR$/points_utils.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/points_utils.h" afterPath="$PROJECT_DIR$/points_utils.h" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -112,8 +98,18 @@
       <file leaf-file-name="camera.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/camera.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-528">
-              <caret line="70" column="2" lean-forward="false" selection-start-line="70" selection-start-column="2" selection-end-line="70" selection-end-column="2" />
+            <state relative-caret-position="1318">
+              <caret line="114" column="17" lean-forward="true" selection-start-line="114" selection-start-column="17" selection-end-line="114" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ad_geometry.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ad_geometry.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1690">
+              <caret line="5" column="2" lean-forward="true" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -124,16 +120,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1248">
               <caret line="49" column="3" lean-forward="false" selection-start-line="49" selection-start-column="3" selection-end-line="49" selection-end-column="3" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="points_utils.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/points_utils.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1456">
-              <caret line="57" column="53" lean-forward="false" selection-start-line="57" selection-start-column="53" selection-end-line="57" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -493,12 +479,12 @@
       <workItem from="1504368180850" duration="7633000" />
       <workItem from="1504377742370" duration="1951000" />
       <workItem from="1504445038029" duration="2514000" />
-      <workItem from="1505228292157" duration="1931000" />
+      <workItem from="1505228292157" duration="1991000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60979000" />
+    <option name="totallyTimeSpent" value="61039000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="50" y="-11" width="1871" height="1092" extended-state="6" />
@@ -559,13 +545,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ad_multivariate.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="17" column="8" lean-forward="false" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/p3p_solver.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="910">
@@ -961,10 +940,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ad_geometry.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1690">
+          <caret line="5" column="2" lean-forward="true" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/camera.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-528">
-          <caret line="70" column="2" lean-forward="false" selection-start-line="70" selection-start-column="2" selection-end-line="70" selection-end-column="2" />
+        <state relative-caret-position="1318">
+          <caret line="114" column="17" lean-forward="true" selection-start-line="114" selection-start-column="17" selection-end-line="114" selection-end-column="17" />
           <folding />
         </state>
       </provider>
