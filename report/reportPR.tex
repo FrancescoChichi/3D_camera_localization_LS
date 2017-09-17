@@ -40,10 +40,27 @@
 		A distance map approach is used in order to compute the data associations.
 		After each transition, a distance map is computed using the G2O's observations as reference and are computed the corrispondences with the projections of the landmarks observed as reference.
 
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.7\linewidth]{img/corrispondences}
+			\caption{The green points are observed points while the red are the projected landmarks.}
+			\label{fig:corrispondences}
+		\end{figure}
+
 		\subsection{Main}
-		The main class is used to parse the data coming out from the G2O simulation into the main data structures of the project and, for each transition of the robot, the observation in a range are stored and used to compute the data association, in order to use the least square to correct the predicted position of the robot.\\
+		The main class is used to parse the data coming out from the G2O simulation into the main data structures of the project and, for each transition of the robot, the landmarks are filtered and only those within a range are stored and used to compute the data association, in order to use the least square to correct the predicted position of the robot.\\
 		 		
 	\section{Least-Squares Approach}
+	\subsection{State}
+	In the state there are the position of the robot in the space, represented as a rotation matrix and a transition vector:
+	X $\in \textit{SE}(3)$ : X = (R|t)
+	
+	The increments $\Delta$x is represented as a ${\rm I\!R}^6$ vector: the position \textit{x},\textit{y},\textit{z} and the rotation among the three axes \textit{$\alpha_x$},\textit{$\alpha_y$},\textit{$\alpha_z$}.
+	
+	\subsection{Measurement}
+	The measurements are the projections on the camera of the world's points.
+	$z^{[\textit{m}]} \in {\rm I\!R}^2 : \textbf{z}^{[\textit{m}]} = (u^{[\textit{m}]} v^{[\textit{m}]})^T$
+	
 	\subsection{Prediction}
 	The prediction of the robot's pose at time \textit{t} is obtained applying the odometry transition at time \textit{t} to the pose \textit{t-1} \textit{(current\_camera\_pose * cameraToRobot * motion * robotToCamera)}. \\
 	$h^{[\textit{n}]} = proj(K X^{-1} p^{[\textit{n}]})$.
@@ -53,14 +70,31 @@
 	$e^{[\textit{n,m}]} = h^{[\textit{n}]} - z^{[\textit{m}]}$
 	
 	\subsection{Jacobian}
-	For each landmarks, the column \textit{i} of the $2\times6$ jacobian is computed using the formulae of the numerical differentiation: $ \frac{f(i +  \epsilon) - f(i-\epsilon)}{2\epsilon}$,
-	where \textit{i} is the \textit{i}-th element of the state \textbf{X}.
+	For each landmarks, the column \textit{i} of the $2\times6$ jacobian is computed using the formulae of the numerical differentiation: $ \frac{f(i +  \epsilon) - f(i-\epsilon)}{2\epsilon}$.
+	
+	For each landmark the procedure is the same: at the \textit{i}-th element of the state \textbf{X} are summed an $\epsilon$, then is projected the point using the modified state as reference and an error \textbf{ep} is computed as the difference between this projected point and the reference one ($z^{[\textit{m}]}$);
+	The same procedure is applied subtracting the $\epsilon$, computing in this way \textbf{em}.
+	
+	Finally the element of the state is computed as $\frac{ep - em}{2\epsilon}$
 	
 	\subsection{Correction}
+	The correction follows the least-squares procedure, for each least-squares iteration:
+	
 	H $\leftarrow$ H + $J_{\textit{i}}^{T}$ $\Omega_{\textit{i}}$ $J_{\textit{i}}$	\\
 	b $\leftarrow$ b + $J_{\textit{i}}^{T}$ $\Omega_{\textit{i}}$ $e_{\textit{i}}$  \\
 	$\Delta x \leftarrow solve(H\Delta x=-b)$\\
 	$X^* \leftarrow X^* \boxplus \Delta x$
 	\section{Experimental Results}	
-	\section{Front-End}	
+	\section{Front-End}
+	In the \textit{Test.h} class is implemented in openCV a GUI that allows the user to visualize and navigate throw Landmarks, robot's pose and transitions.
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.5\linewidth]{img/exact}
+		\includegraphics[width=0.8\linewidth]{img/exact2}
+		\caption{The blue points are robot's poses, the black ones are the landmarks and the purple are represented the transition between two poses.}
+		\label{fig:exact}
+	\end{figure}
+	
+	
 \end{document}
