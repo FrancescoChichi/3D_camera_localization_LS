@@ -6,6 +6,7 @@
 \usepackage{pgfplots,wrapfig}
 \usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{float}
 \usepackage{mathtools}
 \geometry{a4paper} 
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
@@ -18,7 +19,7 @@
 \begin{document}
 	\maketitle
 	\section{Introduction}
-		This project aims to reconstruct the poses of a vehicle, using a Least-Squares approach, using only the odometry and anonymized observations. 
+		This project aims to reconstruct the poses of a vehicle, with a Least-Squares approach, using robot's odometry and anonymized observations. 
 		Using G2O simulator, we obtain a landmarks based map, the robot's perceptions and the transition of the robot between two poses (the odometry).
 
 	\section{Implementation}
@@ -41,7 +42,7 @@
 		A distance map approach is used in order to compute the data associations.
 		After each transition, a distance map is computed using the G2O's observations as reference and are computed the corrispondences with the projections of the landmarks observed as reference.
 
-		\begin{figure}
+		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.7\linewidth]{img/corrispondences}
 			\caption{The green points are observed points while the red are the projected landmarks.}
@@ -93,7 +94,7 @@
 	\section{Front-End}
 	In the \textit{Test.h} class is implemented in openCV a GUI that allows the user to visualize and navigate throw Landmarks, robot's pose and transitions (figure 2). 
 	
-	\begin{figure}
+	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.5\linewidth]{img/exact}
 		\includegraphics[width=0.8\linewidth]{img/exact2}
@@ -125,7 +126,17 @@
 	\end{bmatrix}
 	\]
 	
-	Another problem fixed concerns the project "Projective Registration with unknown Associations" seen during the lessons, where, at each step, the camera is fixed at the world's center, so the jacobian part $J_{icp}^{[\textit{n}]}$ = $(I_{3\times 3} | \floor{- \hat{p}^{[\textit{n}]} }_{\times})$
+	Another problem fixed concerns the project "\textit{Projective Registration with unknown Associations}" seen during the lessons, where the camera is fixed at the world's center, so trasformation worldToCamera is always an identity.
+In this way there are two big difference with this project:
+		\begin{itemize}
+			\item  Since that worldToCamera is always an identity, the $J_{icp}$ part of the jacobian becomes: $J_{icp}^{[\textit{n}]}$ = $(I_{3\times 3} | \floor{- \hat{p}^{[\textit{n}]} }_{\times})$.
+			In the project the entire jacobian is computed numerically.			
+
+			\item The projection used in the observation function uses the state X,	$h^{[\textit{n}]} = proj(K X p^{[\textit{n}]})$, because the origin of the world coincide with the camera position. In this project this semplification couldn't be done, so: $h^{[\textit{n}]} = proj(K X^{-1}. p^{[\textit{n}]})$.
+
+		\end{itemize}
+	
+
 	
 	\end{document}
 
