@@ -36,7 +36,7 @@ namespace pr {
 
     inline float kernelThreshold() const {return _kernel_threshold;}
 
-    inline void setKernelThreshold(float kernel_threshold)
+    inline void setKernelThreshold(float kernel_threshold) 
     {_kernel_threshold=kernel_threshold;}
 
 
@@ -77,22 +77,22 @@ namespace pr {
 
       return uv;
     };
-
+  
     //! accessor to the camera
     const Camera& camera() const {return _camera;}
 
     //! chi square of the "good" points
     const float chiInliers() const {return _chi_inliers;}
-
+    
     //! chi square of the "bad" points
     const float chiOutliers() const {return _chi_outliers;}
-
+    
     //! number of inliers (an inlier is a point whose error is below kernel threshold)
     const int numInliers() const {return _num_inliers;}
-
+    
     //! performs one iteration of optimization
     //! @param correspondences: the correspondences (first: measurement, second:model);
-    //! param keep_outliers: if true, the outliers are considered in the optimization
+    //! param keep_outliers: if true, the outliers are considered in the optimization 
     //! (but cut by the kernel)
     bool oneRound(const IntPairVector& correspondences, bool keep_outliers);
 

@@ -4,9 +4,6 @@ project(Probabilistic_robotics)
 set(CMAKE_CXX_STANDARD 11)
 include_directories(/home/francesco/eigen)
 set(SOURCE_FILES
-        ad_multivariate.h
-        ad_geometry.h
-        ad.h
         main.cpp
         Landmark.h
         Pose.h
@@ -20,7 +17,7 @@ set(SOURCE_FILES
         distance_map_correspondence_finder.cpp
         distance_map_correspondence_finder.h
         camera.h camera.cpp
-        Observation.h g2o_parser.h ProjectPoint.h DictPoints.h)
+        Observation.h g2o_parser.h ProjectPoint.h DictPoints.h Test.h)
 add_executable(Probabilistic_robotics ${SOURCE_FILES})
 
 

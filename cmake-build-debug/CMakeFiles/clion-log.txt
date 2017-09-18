@@ -1,4 +1,4 @@
-/home/francesco/clion-2017.1.1/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/francesco/Documenti/Probabilistic_robotics
+/home/francesco/clion-2017.1.1/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/francesco/Documents/Probabilistic_robotics
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/francesco/Documenti/Probabilistic_robotics/cmake-build-debug
+-- Build files have been written to: /home/francesco/Documents/Probabilistic_robotics/cmake-build-debug

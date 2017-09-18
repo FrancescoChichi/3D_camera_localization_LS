@@ -5,9 +5,10 @@
 \usepackage{geometry} 
 \usepackage{pgfplots,wrapfig}
 \usepackage{amssymb}
-
+\usepackage{amsmath}
+\usepackage{mathtools}
 \geometry{a4paper} 
-
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 \vspace{2cm}
 \setlength{\parindent}{0cm}
 
@@ -62,7 +63,7 @@
 	$z^{[\textit{m}]} \in {\rm I\!R}^2 : \textbf{z}^{[\textit{m}]} = (u^{[\textit{m}]} v^{[\textit{m}]})^T$
 	
 	\subsection{Prediction}
-	The prediction of the robot's pose at time \textit{t} is obtained applying the odometry transition at time \textit{t} to the pose \textit{t-1} \textit{(current\_camera\_pose * cameraToRobot * motion * robotToCamera)}. \\
+	The prediction of the robot's pose at time \textit{t} is obtained applying the odometry transition at time \textit{t} to the pose \textit{t-1} \textit{($current\_camera\_pose \times cameraToRobot \times motion \times robotToCamera$)}. \\
 	$h^{[\textit{n}]} = proj(K X^{-1} p^{[\textit{n}]})$.
 	
 	\subsection{Error}
@@ -79,14 +80,18 @@
 	
 	\subsection{Correction}
 	The correction follows the least-squares procedure, for each least-squares iteration:
+	\begin{center}
+		H $\leftarrow$ H + $J_{\textit{i}}^{T}$ $\Omega_{\textit{i}}$ $J_{\textit{i}}$		
 	
-	H $\leftarrow$ H + $J_{\textit{i}}^{T}$ $\Omega_{\textit{i}}$ $J_{\textit{i}}$	\\
-	b $\leftarrow$ b + $J_{\textit{i}}^{T}$ $\Omega_{\textit{i}}$ $e_{\textit{i}}$  \\
-	$\Delta x \leftarrow solve(H\Delta x=-b)$\\
-	$X^* \leftarrow X^* \boxplus \Delta x$
-	\section{Experimental Results}	
+		b $\leftarrow$ b + $J_{\textit{i}}^{T}$ $\Omega_{\textit{i}}$ $e_{\textit{i}}$ 
+	
+		$\Delta x \leftarrow solve(H\Delta x=-b)$
+	
+		$X^* \leftarrow X^* \boxplus \Delta x$
+	\end{center}
+	
 	\section{Front-End}
-	In the \textit{Test.h} class is implemented in openCV a GUI that allows the user to visualize and navigate throw Landmarks, robot's pose and transitions.
+	In the \textit{Test.h} class is implemented in openCV a GUI that allows the user to visualize and navigate throw Landmarks, robot's pose and transitions (figure 2). 
 	
 	\begin{figure}
 		\centering
@@ -96,5 +101,31 @@
 		\label{fig:exact}
 	\end{figure}
 	
+	\section{Experimental Results}	
+	Unfortunately, the purpose of the project has not been achieved. 
 	
-\end{document}
+	An initially obstacle fixed was the ideal camera matrix $K_i$ gived by G2O: 
+	
+	\[
+	K_i =
+	\begin{bmatrix}
+   		1 & 0 & 0.5\\
+   		0 & 1 & 0.5\\
+   		0 & 0 &  1
+	\end{bmatrix}
+	\]
+	
+	In order to visualize the point in the GUI, all the projected landmarks in the observations are unprojected using $K_i$ and reprojected using a camera matrix $K_r$ that have a camera focal lengths scaled by a factor \textit{scale}=150 and the optical centers centered respect to the resolution of the image:
+		\[
+	K_r =
+	\begin{bmatrix}
+   		1*scale & 0 & 0.5*cols\\
+   		0 & 1*scale & 0.5*rows\\
+   		0 & 0 &  1
+	\end{bmatrix}
+	\]
+	
+	Another problem fixed concerns the project "Projective Registration with unknown Associations" seen during the lessons, where, at each step, the camera is fixed at the world's center, so the jacobian part $J_{icp}^{[\textit{n}]}$ = $(I_{3\times 3} | \floor{- \hat{p}^{[\textit{n}]} }_{\times})$
+	
+	\end{document}
+

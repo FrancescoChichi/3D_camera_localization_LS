@@ -12,6 +12,7 @@ class Landmark {
         int id;
         Eigen::Vector3f p;
 
+
 public:
         void setPose(Eigen::Vector3f n) {p=n;};
         void setId(int n) {id = n;};

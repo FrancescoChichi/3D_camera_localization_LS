@@ -137,7 +137,6 @@ public:
     ss >> token;
     q.w()=stof(token);
 
-
     Vector3f t(x,y,z);
 
 
@@ -183,6 +182,7 @@ public:
     //se l'osservazione è nuova la aggiungo, altrimenti modifico la vecchia
     if (observations.size() > 0) {
       for (int i = (observations.size() - 1); i >= 0; --i) {
+
         if (observations[i].getPoseId() == poseId) {
 
           Observation *obs = &observations[i];

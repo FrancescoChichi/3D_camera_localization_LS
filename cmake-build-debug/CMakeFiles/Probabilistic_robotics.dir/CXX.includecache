@@ -6,73 +6,81 @@
 
 #IncludeRegexTransform: 
 
-/home/francesco/Documenti/Probabilistic_robotics/DictPoints.h
+/home/francesco/Documents/Probabilistic_robotics/DictPoints.h
 Eigen/Dense
 -
 defs.h
-/home/francesco/Documenti/Probabilistic_robotics/defs.h
+/home/francesco/Documents/Probabilistic_robotics/defs.h
 
-/home/francesco/Documenti/Probabilistic_robotics/Landmark.h
+/home/francesco/Documents/Probabilistic_robotics/Landmark.h
 Eigen/Dense
 -
 
-/home/francesco/Documenti/Probabilistic_robotics/Observation.h
+/home/francesco/Documents/Probabilistic_robotics/Observation.h
 Eigen/Dense
 -
 defs.h
-/home/francesco/Documenti/Probabilistic_robotics/defs.h
+/home/francesco/Documents/Probabilistic_robotics/defs.h
 
-/home/francesco/Documenti/Probabilistic_robotics/Pose.h
+/home/francesco/Documents/Probabilistic_robotics/Pose.h
 Eigen/Dense
 -
 
-/home/francesco/Documenti/Probabilistic_robotics/ProjectPoint.h
+/home/francesco/Documents/Probabilistic_robotics/ProjectPoint.h
 ad_geometry.h
-/home/francesco/Documenti/Probabilistic_robotics/ad_geometry.h
+/home/francesco/Documents/Probabilistic_robotics/ad_geometry.h
 iostream
 -
 Eigen/StdVector
 -
 ad_multivariate.h
-/home/francesco/Documenti/Probabilistic_robotics/ad_multivariate.h
+/home/francesco/Documents/Probabilistic_robotics/ad_multivariate.h
 
-/home/francesco/Documenti/Probabilistic_robotics/Transition.h
+/home/francesco/Documents/Probabilistic_robotics/Test.h
+Landmark.h
+/home/francesco/Documents/Probabilistic_robotics/Landmark.h
+camera.h
+/home/francesco/Documents/Probabilistic_robotics/camera.h
+points_utils.h
+/home/francesco/Documents/Probabilistic_robotics/points_utils.h
+
+/home/francesco/Documents/Probabilistic_robotics/Transition.h
 Eigen/Dense
 -
 
-/home/francesco/Documenti/Probabilistic_robotics/ad.h
+/home/francesco/Documents/Probabilistic_robotics/ad.h
 cmath
 -
 
-/home/francesco/Documenti/Probabilistic_robotics/ad_geometry.h
+/home/francesco/Documents/Probabilistic_robotics/ad_geometry.h
 ad.h
-/home/francesco/Documenti/Probabilistic_robotics/ad.h
+/home/francesco/Documents/Probabilistic_robotics/ad.h
 Eigen/Geometry
 -
 
-/home/francesco/Documenti/Probabilistic_robotics/ad_multivariate.h
+/home/francesco/Documents/Probabilistic_robotics/ad_multivariate.h
 ad.h
-/home/francesco/Documenti/Probabilistic_robotics/ad.h
+/home/francesco/Documents/Probabilistic_robotics/ad.h
 Eigen/Core
 -
 
-/home/francesco/Documenti/Probabilistic_robotics/camera.cpp
+/home/francesco/Documents/Probabilistic_robotics/camera.cpp
 camera.h
-/home/francesco/Documenti/Probabilistic_robotics/camera.h
+/home/francesco/Documents/Probabilistic_robotics/camera.h
 DictPoints.h
-/home/francesco/Documenti/Probabilistic_robotics/DictPoints.h
+/home/francesco/Documents/Probabilistic_robotics/DictPoints.h
 
-/home/francesco/Documenti/Probabilistic_robotics/camera.h
+/home/francesco/Documents/Probabilistic_robotics/camera.h
 defs.h
-/home/francesco/Documenti/Probabilistic_robotics/defs.h
+/home/francesco/Documents/Probabilistic_robotics/defs.h
 Landmark.h
-/home/francesco/Documenti/Probabilistic_robotics/Landmark.h
+/home/francesco/Documents/Probabilistic_robotics/Landmark.h
 Pose.h
-/home/francesco/Documenti/Probabilistic_robotics/Pose.h
+/home/francesco/Documents/Probabilistic_robotics/Pose.h
 DictPoints.h
-/home/francesco/Documenti/Probabilistic_robotics/DictPoints.h
+/home/francesco/Documents/Probabilistic_robotics/DictPoints.h
 
-/home/francesco/Documenti/Probabilistic_robotics/defs.h
+/home/francesco/Documents/Probabilistic_robotics/defs.h
 Eigen/Core
 -
 Eigen/Geometry
@@ -86,11 +94,11 @@ iostream
 unistd.h
 -
 opencv2/opencv.hpp
-/home/francesco/Documenti/Probabilistic_robotics/opencv2/opencv.hpp
+/home/francesco/Documents/Probabilistic_robotics/opencv2/opencv.hpp
 
-/home/francesco/Documenti/Probabilistic_robotics/distance_map.cpp
+/home/francesco/Documents/Probabilistic_robotics/distance_map.cpp
 distance_map.h
-/home/francesco/Documenti/Probabilistic_robotics/distance_map.h
+/home/francesco/Documents/Probabilistic_robotics/distance_map.h
 limits
 -
 deque
@@ -102,9 +110,9 @@ set
 vector
 -
 
-/home/francesco/Documenti/Probabilistic_robotics/distance_map.h
+/home/francesco/Documents/Probabilistic_robotics/distance_map.h
 defs.h
-/home/francesco/Documenti/Probabilistic_robotics/defs.h
+/home/francesco/Documents/Probabilistic_robotics/defs.h
 deque
 -
 queue
@@ -114,17 +122,17 @@ set
 limits
 -
 
-/home/francesco/Documenti/Probabilistic_robotics/distance_map_correspondence_finder.cpp
+/home/francesco/Documents/Probabilistic_robotics/distance_map_correspondence_finder.cpp
 distance_map_correspondence_finder.h
-/home/francesco/Documenti/Probabilistic_robotics/distance_map_correspondence_finder.h
+/home/francesco/Documents/Probabilistic_robotics/distance_map_correspondence_finder.h
 points_utils.h
-/home/francesco/Documenti/Probabilistic_robotics/points_utils.h
+/home/francesco/Documents/Probabilistic_robotics/points_utils.h
 
-/home/francesco/Documenti/Probabilistic_robotics/distance_map_correspondence_finder.h
+/home/francesco/Documents/Probabilistic_robotics/distance_map_correspondence_finder.h
 distance_map.h
-/home/francesco/Documenti/Probabilistic_robotics/distance_map.h
+/home/francesco/Documents/Probabilistic_robotics/distance_map.h
 
-/home/francesco/Documenti/Probabilistic_robotics/g2o_parser.h
+/home/francesco/Documents/Probabilistic_robotics/g2o_parser.h
 iostream
 -
 fstream
@@ -132,25 +140,25 @@ fstream
 sstream
 -
 Landmark.h
-/home/francesco/Documenti/Probabilistic_robotics/Landmark.h
+/home/francesco/Documents/Probabilistic_robotics/Landmark.h
 Pose.h
-/home/francesco/Documenti/Probabilistic_robotics/Pose.h
+/home/francesco/Documents/Probabilistic_robotics/Pose.h
 Observation.h
-/home/francesco/Documenti/Probabilistic_robotics/Observation.h
+/home/francesco/Documents/Probabilistic_robotics/Observation.h
 Transition.h
-/home/francesco/Documenti/Probabilistic_robotics/Transition.h
+/home/francesco/Documents/Probabilistic_robotics/Transition.h
 camera.h
-/home/francesco/Documenti/Probabilistic_robotics/camera.h
+/home/francesco/Documents/Probabilistic_robotics/camera.h
 utils.h
-/home/francesco/Documenti/Probabilistic_robotics/utils.h
+/home/francesco/Documents/Probabilistic_robotics/utils.h
 points_utils.h
-/home/francesco/Documenti/Probabilistic_robotics/points_utils.h
+/home/francesco/Documents/Probabilistic_robotics/points_utils.h
 distance_map_correspondence_finder.h
-/home/francesco/Documenti/Probabilistic_robotics/distance_map_correspondence_finder.h
+/home/francesco/Documents/Probabilistic_robotics/distance_map_correspondence_finder.h
 p3p_solver.h
-/home/francesco/Documenti/Probabilistic_robotics/p3p_solver.h
+/home/francesco/Documents/Probabilistic_robotics/p3p_solver.h
 
-/home/francesco/Documenti/Probabilistic_robotics/main.cpp
+/home/francesco/Documents/Probabilistic_robotics/main.cpp
 iostream
 -
 fstream
@@ -158,65 +166,65 @@ fstream
 sstream
 -
 Landmark.h
-/home/francesco/Documenti/Probabilistic_robotics/Landmark.h
+/home/francesco/Documents/Probabilistic_robotics/Landmark.h
 Pose.h
-/home/francesco/Documenti/Probabilistic_robotics/Pose.h
+/home/francesco/Documents/Probabilistic_robotics/Pose.h
 Observation.h
-/home/francesco/Documenti/Probabilistic_robotics/Observation.h
+/home/francesco/Documents/Probabilistic_robotics/Observation.h
 Transition.h
-/home/francesco/Documenti/Probabilistic_robotics/Transition.h
+/home/francesco/Documents/Probabilistic_robotics/Transition.h
 camera.h
-/home/francesco/Documenti/Probabilistic_robotics/camera.h
+/home/francesco/Documents/Probabilistic_robotics/camera.h
 utils.h
-/home/francesco/Documenti/Probabilistic_robotics/utils.h
+/home/francesco/Documents/Probabilistic_robotics/utils.h
 points_utils.h
-/home/francesco/Documenti/Probabilistic_robotics/points_utils.h
+/home/francesco/Documents/Probabilistic_robotics/points_utils.h
 distance_map_correspondence_finder.h
-/home/francesco/Documenti/Probabilistic_robotics/distance_map_correspondence_finder.h
+/home/francesco/Documents/Probabilistic_robotics/distance_map_correspondence_finder.h
 p3p_solver.h
-/home/francesco/Documenti/Probabilistic_robotics/p3p_solver.h
+/home/francesco/Documents/Probabilistic_robotics/p3p_solver.h
 g2o_parser.h
-/home/francesco/Documenti/Probabilistic_robotics/g2o_parser.h
-DictPoints.h
-/home/francesco/Documenti/Probabilistic_robotics/DictPoints.h
+/home/francesco/Documents/Probabilistic_robotics/g2o_parser.h
+Test.h
+/home/francesco/Documents/Probabilistic_robotics/Test.h
 
-/home/francesco/Documenti/Probabilistic_robotics/p3p_solver.cpp
+/home/francesco/Documents/Probabilistic_robotics/p3p_solver.cpp
 Eigen/Cholesky
 -
 iostream
 -
 p3p_solver.h
-/home/francesco/Documenti/Probabilistic_robotics/p3p_solver.h
+/home/francesco/Documents/Probabilistic_robotics/p3p_solver.h
 ProjectPoint.h
-/home/francesco/Documenti/Probabilistic_robotics/ProjectPoint.h
+/home/francesco/Documents/Probabilistic_robotics/ProjectPoint.h
 
-/home/francesco/Documenti/Probabilistic_robotics/p3p_solver.h
+/home/francesco/Documents/Probabilistic_robotics/p3p_solver.h
 Landmark.h
-/home/francesco/Documenti/Probabilistic_robotics/Landmark.h
+/home/francesco/Documents/Probabilistic_robotics/Landmark.h
 defs.h
-/home/francesco/Documenti/Probabilistic_robotics/defs.h
+/home/francesco/Documents/Probabilistic_robotics/defs.h
 camera.h
-/home/francesco/Documenti/Probabilistic_robotics/camera.h
+/home/francesco/Documents/Probabilistic_robotics/camera.h
 
-/home/francesco/Documenti/Probabilistic_robotics/points_utils.cpp
+/home/francesco/Documents/Probabilistic_robotics/points_utils.cpp
 iostream
 -
 points_utils.h
-/home/francesco/Documenti/Probabilistic_robotics/points_utils.h
+/home/francesco/Documents/Probabilistic_robotics/points_utils.h
 
-/home/francesco/Documenti/Probabilistic_robotics/points_utils.h
+/home/francesco/Documents/Probabilistic_robotics/points_utils.h
 defs.h
-/home/francesco/Documenti/Probabilistic_robotics/defs.h
+/home/francesco/Documents/Probabilistic_robotics/defs.h
 distance_map.h
-/home/francesco/Documenti/Probabilistic_robotics/distance_map.h
+/home/francesco/Documents/Probabilistic_robotics/distance_map.h
 
-/home/francesco/Documenti/Probabilistic_robotics/utils.cpp
+/home/francesco/Documents/Probabilistic_robotics/utils.cpp
 utils.h
-/home/francesco/Documenti/Probabilistic_robotics/utils.h
+/home/francesco/Documents/Probabilistic_robotics/utils.h
 sys/time.h
 -
 
-/home/francesco/Documenti/Probabilistic_robotics/utils.h
+/home/francesco/Documents/Probabilistic_robotics/utils.h
 iostream
 -
 

@@ -107,7 +107,8 @@ namespace pr {
     inline const Eigen::Isometry3f& worldToCameraPose() const {return _world_to_camera_pose;}
     inline void setWorldToCameraPose(const Eigen::Isometry3f& pose)  {_world_to_camera_pose=pose;}
     inline const Eigen::Matrix3f& cameraMatrix() const {return _camera_matrix;}
-
+    int getRows(){return _rows;};
+    int getCols(){return _cols;};
 
 
   protected:

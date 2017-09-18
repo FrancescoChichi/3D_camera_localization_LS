@@ -26,8 +26,8 @@ float rangeDepth = 0.3; //depth of the range filter
 float max_distance = 20; //dimension of distance map circle
 int lsIteration = 10; //least square iteration
 int kernelThreshold = 1000; //least square kernel threshold
-bool showCorrispondence = false;
-bool showLSStep = false;
+bool showCorrispondence = true;
+bool showLSStep = true;
 bool ls = true;
 
 Isometry3f robotToCamera = Eigen::Isometry3f::Identity();
