@@ -8,6 +8,8 @@
 \usepackage{amsmath}
 \usepackage{float}
 \usepackage{mathtools}
+\usepackage[T1]{fontenc}
+
 \geometry{a4paper} 
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 \vspace{2cm}
@@ -20,14 +22,14 @@
 	\maketitle
 	\section{Introduction}
 		This project aims to reconstruct the poses of a vehicle, with a Least-Squares approach, using robot's odometry and anonymized observations. 
-		Using G2O simulator, we obtain a landmarks based map, the robot's perceptions and the transition of the robot between two poses (the odometry).
+		Via G2O simulator, we obtain a landmarks based map, the robot's perceptions and the transition of the robot between two poses (the odometry).
 
 	\section{Implementation}
 		\subsection{Data Structure}
 		All the project's data structures are parsed from the G2O file by the \textit{g2o\_parser} class.
 		\begin{itemize}
 			\item \textbf{Landmark:} This object store the position of a landmark and his ID.
-			\item \textbf{Pose:} Used to represent a robot's pose and his ID.
+			\item \textbf{Pose:} Used to represent a camera pose and his ID.
 			\item \textbf{Transition:} This structure represent the transition of the robot from pose A to B. In it are stored the two poses and their relative ID.
 			\item \textbf{Observation:} This kind of data structure is used to represent the robot's observations. 
 			It contains the pose's ID, a vector of 2d landmarks and two vector with the relative ID and depth of each one.
@@ -36,11 +38,11 @@
 	
 		\subsection{Camera}
 		This class is used to represent a camera, initialized with the resolution (rows and columns), the camera matrix and the initial position in the space.
-		In it we find the two principal methods\textit{projectPoints} and \textit{unprojectPoint}, used to transform a point from 2D to 3D and vice versa.
+		It contains the two principal methods \textit{projectPoints} and \textit{unprojectPoint}, used to transform a point from 2D to 3D and vice versa.
 		
 		\subsection{Distance Map}
 		A distance map approach is used in order to compute the data associations.
-		After each transition, a distance map is computed using the G2O's observations as reference and are computed the corrispondences with the projections of the landmarks observed as reference.
+		After each transition, a distance map is computed using the G2O's observations as reference and are computed the corrispondences with the projections of the landmarks observed.
 
 		\begin{figure}[H]
 			\centering
@@ -50,11 +52,11 @@
 		\end{figure}
 
 		\subsection{Main}
-		The main class is used to parse the data coming out from the G2O simulation into the main data structures of the project and, for each transition of the robot, the landmarks are filtered and only those within a range are stored and used to compute the data association, in order to use the least square to correct the predicted position of the robot.\\
+		The main class is used to parse the data coming out from the G2O simulation into the main data structures of the project and, for each transition of the robot, the landmarks are filtered and only those within a range are stored and used to compute the data association, in order to use correcht, using least squares, the predicted position of the camera.\\
 		 		
 	\section{Least-Squares Approach}
 	\subsection{State}
-	In the state there are the position of the robot in the space, represented as a rotation matrix and a transition vector:
+	In the state there are the position of the camera in the space, represented as a rotation matrix and a transition vector:
 	X $\in \textit{SE}(3)$ : X = (R|t)
 	
 	The increments $\Delta$x is represented as a ${\rm I\!R}^6$ vector: the position \textit{x},\textit{y},\textit{z} and the rotation among the three axes \textit{$\alpha_x$},\textit{$\alpha_y$},\textit{$\alpha_z$}.
@@ -64,7 +66,7 @@
 	$z^{[\textit{m}]} \in {\rm I\!R}^2 : \textbf{z}^{[\textit{m}]} = (u^{[\textit{m}]} v^{[\textit{m}]})^T$
 	
 	\subsection{Prediction}
-	The prediction of the robot's pose at time \textit{t} is obtained applying the odometry transition at time \textit{t} to the pose \textit{t-1} \textit{($current\_camera\_pose \times cameraToRobot \times motion \times robotToCamera$)}. \\
+	The prediction of the camera pose at time \textit{t} is obtained applying the odometry transition at time \textit{t} to the pose \textit{t-1} \textit{($current\_camera\_pose \times cameraToRobot \times motion \times robotToCamera$)}. \\
 	$h^{[\textit{n}]} = proj(K X^{-1} p^{[\textit{n}]})$.
 	
 	\subsection{Error}
@@ -92,13 +94,13 @@
 	\end{center}
 	
 	\section{Front-End}
-	In the \textit{Test.h} class is implemented in openCV a GUI that allows the user to visualize and navigate throw Landmarks, robot's pose and transitions (figure 2). 
+	In the \textit{Test.h} class is implemented in openCV a GUI that allows the user to visualize and navigate throw Landmarks, camera poses and transitions (figure 2). 
 	
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.5\linewidth]{img/exact}
 		\includegraphics[width=0.8\linewidth]{img/exact2}
-		\caption{The blue points are robot's poses, the black ones are the landmarks and the purple are represented the transition between two poses.}
+		\caption{The blue points are camera poses, the black ones are the landmarks and the purple are represented the transition between two poses.}
 		\label{fig:exact}
 	\end{figure}
 	
