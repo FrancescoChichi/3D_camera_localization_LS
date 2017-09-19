@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.9.10)  18 SEP 2017 17:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.9.10)  19 SEP 2017 13:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1049,21 +1049,45 @@ Package pdftex.def Info: img/corrispondences.png used on input line 49.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 55--56
+Underfull \hbox (badness 10000) in paragraph at lines 55--57
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--61
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 68--69
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 74--75
 
  []
 
 [2 <./img/corrispondences.png>]
-<img/exact.png, id=27, 219.82124pt x 219.06844pt>
+Underfull \hbox (badness 10000) in paragraph at lines 80--81
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 86--87
+
+ []
+
+<img/exact.png, id=26, 219.82124pt x 219.06844pt>
 File: img/exact.png Graphic file (type png)
  <use img/exact.png>
-Package pdftex.def Info: img/exact.png used on input line 101.
+Package pdftex.def Info: img/exact.png used on input line 113.
 (pdftex.def)             Requested size: 209.12683pt x 208.418pt.
 
-<img/exact2.png, id=28, 300.3722pt x 97.86563pt>
+<img/exact2.png, id=27, 300.3722pt x 97.86563pt>
 File: img/exact2.png Graphic file (type png)
  <use img/exact2.png>
-Package pdftex.def Info: img/exact2.png used on input line 102.
+Package pdftex.def Info: img/exact2.png used on input line 114.
 (pdftex.def)             Requested size: 334.60422pt x 109.02783pt.
  [3]
 [4 <./img/exact.png> <./img/exact2.png>] [5] (./reportPR.aux) ) 
@@ -1090,7 +1114,7 @@ ype1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super
 share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/ty
 pe1/public/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/
 sfti0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1000.pfb>
-Output written on reportPR.pdf (5 pages, 226257 bytes).
+Output written on reportPR.pdf (5 pages, 226182 bytes).
 PDF statistics:
  91 PDF objects out of 1000 (max. 8388607)
  64 compressed objects within 1 object stream

@@ -52,32 +52,44 @@
 		\end{figure}
 
 		\subsection{Main}
-		The main class is used to parse the data coming out from the G2O simulation into the main data structures of the project and, for each transition of the robot, the landmarks are filtered and only those within a range are stored and used to compute the data association, in order to use correcht, using least squares, the predicted position of the camera.\\
+		The main class is used to parse the data coming out from the G2O simulation into the data structures of the project.
+		Once the data are completely parsed, for each transition of the robot, the landmarks are filtered and only those within a range are stored and used to compute the data association, in order to correct, using the least squares algorithm, the predicted position of the camera.\\
 		 		
 	\section{Least-Squares Approach}
 	\subsection{State}
-	In the state there are the position of the camera in the space, represented as a rotation matrix and a transition vector:
-	X $\in \textit{SE}(3)$ : X = (R|t)
+	In the state there are the position of the camera in the space, represented as a rotation matrix and a transition vector:\\
+	\begin{center}
+		X $\in \textit{SE}(3)$ : X = (R|t)
+	\end{center}
 	
-	The increments $\Delta$x is represented as a ${\rm I\!R}^6$ vector: the position \textit{x},\textit{y},\textit{z} and the rotation among the three axes \textit{$\alpha_x$},\textit{$\alpha_y$},\textit{$\alpha_z$}.
+	The increments $\Delta$x is represented as a ${\rm I\!R}^6$ vector: the position \textit{x},\textit{y},\textit{z} and the rotations among the three axes \textit{$\alpha_x$},\textit{$\alpha_y$},\textit{$\alpha_z$}.
 	
 	\subsection{Measurement}
-	The measurements are the projections on the camera of the world's points.
+	The measurements are the projections of the landmarks in the camera. \\
+	\begin{center}
 	$z^{[\textit{m}]} \in {\rm I\!R}^2 : \textbf{z}^{[\textit{m}]} = (u^{[\textit{m}]} v^{[\textit{m}]})^T$
-	
+	\end{center}
+
 	\subsection{Prediction}
 	The prediction of the camera pose at time \textit{t} is obtained applying the odometry transition at time \textit{t} to the pose \textit{t-1} \textit{($current\_camera\_pose \times cameraToRobot \times motion \times robotToCamera$)}. \\
+			\begin{center}
 	$h^{[\textit{n}]} = proj(K X^{-1} p^{[\textit{n}]})$.
+	\end{center}
 	
 	\subsection{Error}
-	The error is computed as the difference between the 2D projection of the landmarks, using the predicted pose, and the observation of the same:\\
+	The error is computed as the difference between the projected landmark, using the predicted pose, and the observed one:\\
+			\begin{center}
 	$e^{[\textit{n,m}]} = h^{[\textit{n}]} - z^{[\textit{m}]}$
+	\end{center}
 	
 	\subsection{Jacobian}
-	For each landmarks, the column \textit{i} of the $2\times6$ jacobian is computed using the formulae of the numerical differentiation: $ \frac{f(i +  \epsilon) - f(i-\epsilon)}{2\epsilon}$.
+	For each landmark, the column \textit{i} of the $2\times6$ jacobian is computed using the formula of the numerical differentiation: \\
+			\begin{center}
+$ \frac{f(i +  \epsilon) - f(i-\epsilon)}{2\epsilon}$.
+\end{center}
 	
-	For each landmark the procedure is the same: at the \textit{i}-th element of the state \textbf{X} are summed an $\epsilon$, then is projected the point using the modified state as reference and an error \textbf{ep} is computed as the difference between this projected point and the reference one ($z^{[\textit{m}]}$);
-	The same procedure is applied subtracting the $\epsilon$, computing in this way \textbf{em}.
+	For each landmark the procedure is the same: at the \textit{i}-th element of the state \textbf{X} are summed an $\epsilon$, then is projected the point using a camera in the modified state, then an error \textbf{ep} is computed as the difference between this projected point and the reference one ($z^{[\textit{m}]}$);\\
+	The same procedure is applied subtracting the $\epsilon$, computing in the same way \textbf{em}.
 	
 	Finally the element of the state is computed as $\frac{ep - em}{2\epsilon}$
 	
